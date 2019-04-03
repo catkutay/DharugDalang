@@ -1,0 +1,553 @@
+/*
+
+
+
+
+ * JoomSpirit CSS file for modules
+
+
+
+
+ *  
+
+
+
+
+ */ 
+
+
+
+/* header span's */
+
+
+
+
+div.module span.module-2,
+
+
+
+
+div.module span.module-3 {
+
+
+
+
+	display: block;
+
+
+
+
+}
+
+
+
+
+
+
+
+/*
+
+ * module: default
+ */
+
+div.default div.module {
+
+
+
+
+	background: url(../images/module_default_br.png) 100% 100% no-repeat;
+
+
+
+
+	position: relative;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.default div.module-2 {
+
+
+
+
+	background: url(../images/module_default_tr.png) 100% 0 no-repeat;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.default div.module-3 {
+
+
+
+
+	background: url(../images/module_default_bl.png) 0 100% no-repeat;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.default div.module-4 {
+
+
+
+
+	min-height: 130px;	 
+
+
+
+
+	padding: 10px 15px 10px 15px;
+
+
+
+
+	background: url(../images/module_default_tl.png) 0 0 no-repeat;
+
+
+
+
+	overflow: hidden;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.default h3.module {
+
+
+
+
+	margin: -10px -15px 5px -15px;
+
+
+
+
+	background: url(../images/module_default_header_m.png) 0 100% repeat-x;
+
+
+
+
+	line-height: 30px;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.default span.module-2 {
+
+
+
+
+	height: 30px;
+
+
+
+
+	background: url(../images/module_color_header_default.png) 0 100% repeat-x;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+ * module: color
+
+
+
+
+ */
+
+
+
+
+ 
+
+
+
+
+ div.color {
+
+
+
+
+ margin: 0 10px 10px 0;
+
+
+
+
+ }
+
+
+
+
+ 
+
+
+
+
+/* rose */
+
+
+
+
+div.color div.module {
+
+
+
+
+	background: url(../images/cadre_rose_r2_c2.png) 100% 100% no-repeat;
+
+
+
+
+	position: relative;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.color div.module-2 {
+
+
+
+
+	background: url(../images/cadre_rose_r1_c2.png) 100% 0 no-repeat;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.color div.module-3 {
+
+
+
+
+	background: url(../images/cadre_rose_r2_c1.png) 0 100% no-repeat;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.color div.module-4 {
+
+
+
+
+	min-height: 60px;
+
+
+
+
+	padding: 10px 15px 15px 15px;
+
+
+
+
+	background: url(../images/cadre_rose_r1_c1.png) 0 0 no-repeat;
+
+
+
+
+	overflow: hidden;
+
+
+
+
+	color: #333;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.color h3.module {
+
+
+
+
+	margin: -6px -15px 5px -15px;
+
+
+
+
+	padding: 0px 10px 0px 10px;
+
+
+
+
+	text-indent: 5px;
+
+
+
+
+	line-height: 35px;
+
+
+
+
+	font-weight: bold;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+div.color span.module-2 {
+
+
+
+
+	height: 35px;
+
+
+
+
+	background: url(../images/module_color_header.png) 50% 100% no-repeat;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* blue */
+
+
+
+
+div.color div.blue { background: url(../images/cadre_blue_r2_c2.png) 100% 100% no-repeat; }
+
+
+
+
+div.color div.blue div.module-2 { background: url(../images/cadre_blue_r1_c2.png) 100% 0 no-repeat; }
+
+
+
+
+div.color div.blue div.module-3 { background: url(../images/cadre_blue_r2_c1.png) 0 100% no-repeat; }
+
+
+
+
+div.color div.blue div.module-4 { background: url(../images/cadre_blue_r1_c1.png) 0 0 no-repeat; }
+
+
+
+
+
+
+
+
+
+/* green */
+
+
+
+
+div.color div.green { background: url(../images/cadre_green_r2_c2.png) 100% 100% no-repeat; }
+
+
+
+
+div.color div.green div.module-2 { background: url(../images/cadre_green_r1_c2.png) 100% 0 no-repeat; }
+
+
+
+
+div.color div.green div.module-3 { background: url(../images/cadre_green_r2_c1.png) 0 100% no-repeat; }
+
+
+
+
+div.color div.green div.module-4 { background: url(../images/cadre_green_r1_c1.png) 0 0 no-repeat; }
+
+
+
+
+
+
+
+
+
+/* red */
+
+
+
+
+div.color div.red { background: url(../images/cadre_red_r2_c2.png) 100% 100% no-repeat; }
+
+
+
+
+div.color div.red div.module-2 { background: url(../images/cadre_red_r1_c2.png) 100% 0 no-repeat; }
+
+
+
+
+div.color div.red div.module-3 { background: url(../images/cadre_red_r2_c1.png) 0 100% no-repeat; }
+
+
+
+
+div.color div.red div.module-4 { background: url(../images/cadre_red_r1_c1.png) 0 0 no-repeat; }
+
+
+
+
+
+
+
+
+
+/* yellow */
+
+
+
+
+div.color div.yellow { background: url(../images/cadre_yellow_r2_c2.png) 100% 100% no-repeat; }
+
+
+
+
+div.color div.yellow div.module-2 { background: url(../images/cadre_yellow_r1_c2.png) 100% 0 no-repeat; }
+
+
+
+
+div.color div.yellow div.module-3 { background: url(../images/cadre_yellow_r2_c1.png) 0 100% no-repeat; }
+
+
+
+
+div.color div.yellow div.module-4 { background: url(../images/cadre_yellow_r1_c1.png) 0 0 no-repeat; }

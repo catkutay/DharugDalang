@@ -1,0 +1,67 @@
+/* normalise les marges et les remplissages  */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td
+{font-family:"Lucida Grande";margin: 0;padding : 0;}
+/* normalise les tailles de polices pour les en-têtes */
+h1, h2, h3, h4, h5, h6{font-size : 100%;}
+/* supprime list-style pour les listes */
+ol, ul{list-style : none;}
+/* normalise les styles et graisse de fontes */
+address, caption, cite, code, dfn, em, th, var{font-style : normal;font-weight : normal;}
+/* supprime les bordures dans les tableaux */
+#popupword, #popuplist, #popupsearch{
+
+padding: 5px; display: none; margin: 0px; width: 100%; position: absolute; font-family: arial; font-size: 11px; color: rgb(255, 255, 255); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100;
+background: 0px 0px no-repeat ; background-color: rgb(0, 0, 0) ; background-color : rgba(00,0,0, 1.0);
+}
+#popupword a{
+color: rgb(255, 255, 255);
+}
+table{border-collapse : collapse;border-spacing : 0;}
+/* supprime les bordures dans les éléments fieldset et img */
+fieldset, img{border : 0;}
+/* aligne le texte à gauche dans caption et th */
+caption, th{text-align : left;}
+/* supprime les apostrophes double (guillemets anglais) autour de q */
+q:before, q:after{content :'';}
+/* supprime le souslignage des liens et les met en noir */
+a{text-decoration : none;color : #33c;}
+/*****************************************	SITE******************************************/
+html {text-align:center;}
+body {margin:0;position:relative;background-color: #292022;}#fond_left {position:absolute;top:0;left:0;width:38%;height:2000px;background: #292022 url(../images/fond_left.gif) 100% 0 repeat-y;
+z-index:2;}
+#fond_right {position:absolute;top:0;left:38%;width:62%;
+height:2000px;background: transparent url(../images/wood02.jpg) 0 0 repeat;
+z-index:1;}
+div#wrapper {position:relative;width:100%;text-align:left;margin: 0 auto;z-index:5;}
+
+/*
+ * *		LEFT COLUMN
+ * */
+#left{position:absolute;top:100px;right:76%;width:24%;height:580px;z-index:100;}div#menu {position:absolute;top:180px;left:0;width:95%;}div#nav_main {}
+#site_name {width:100%;text-align:right;}#search {margin-left:7px;height:26px;line-height:26px;overflow:hidden;padding:10px 0 0;text-align:right;}#search .inputbox {background:transparent url(../images/icon-search.gif) 0 0 no-repeat;border:0 none;float:left;height:26px;padding:4px 0 4px 25px;width:160px;color:#ccc;}/**	footer	**/#footer {position:absolute;bottom:0;left:0.5em;width:95%;}#footer p {margin-bottom:0;}#syndicate {float:left;margin:0px 10px 0px 0;}#copyright {}#copy {clear:both;}
+/*
+ * *		RIGHT SITE
+ * */
+div#right {position:absolute;left:30%;top:200px;width:64%;height:450px;background-color: #fff;z-index:10;}
+div#image { margin: 12px; overflow:hidden;}
+div#logo { position: relative; left: -80px; top: 25px;  }
+div#main_component {}
+#main_content {display:block;background-color: #cfcfcf;overflow:auto;height:446px;padding: 0 10px;}
+#pathway {text-align:right;}
+/**  ARTICLE  **/
+table, table.contentpaneopen, table.contentpane, table.blog {width:100%;}
+table.contenttoc {float:right;background-color:#eeeeee;display:block;padding:10px;margin:20px;width: 25%;}
+.article_separator {display:block;clear:both;height:33px;background: transparent url(../images/article_separator.gif) 50% 15px no-repeat;}
+.column_separator {padding:0 0 0 25px;}
+.article-tools {border-top:1px solid #dfdfdf;display:block;height:25px;margin-bottom:15px;width:95%;}
+.article-meta {float:left;padding:5px;width:70%;}
+.createdate {background:transparent url(../images/icon-date.gif) no-repeat scroll 0 2px;padding:3px 3px 3px 20px;}
+.createby {background:transparent url(../images/icon-user.gif) no-repeat scroll 0 2px;padding:3px 3px 3px 20px;}
+div.buttonheading {float:right;width:25%;text-align:right;margin: 3px 12px 0 0;}
+/**	bottom nav		**/
+#bottom_nav {position:absolute;top:690px;right: 11%;width:52%;height:auto;z-index:20;}
+.float_right {float:right;}
+/**  OTHERS  	**/
+.clr {clear:both;}
+
+.cadre_moitie_gauche {float:left;width:47%;padding:5px;background-color:#e2e2e2;height:100px;margin-top:10px;}.cadre_moitie_droite {float:right;width:47%;padding:5px;background-color:#e2e2e2;height:100px;margin-top:10px;}

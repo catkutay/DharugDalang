@@ -1,0 +1,11 @@
+/**		JoomSpirit CSS file for color**/
+h1, h2 {color: #cc7700;}
+h3, h4 {color:#d3a543;}
+.article-tools {background-color:#e9e9e9;}
+/*  link   */
+a {color: #659;}
+a:hover {text-decoration : underline;}
+#footer a {color:#dedede;}
+/**  READ ON  **/a.readon, a.readmore {margin-left:25px;height:20px;}
+a.readon:link, a.readon:visited, a.readmore:link, a.readmore:visited {color: #659;}
+a.readon:hover, a.readmore:hover {color: blue;}
