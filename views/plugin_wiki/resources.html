@@ -1,0 +1,36 @@
+{{extend 'layout.html'}}
+<p>The items listed below are the archival tapes of Dharug and Dharawal languages. You may wish to listen to thse for immersion in language. Also those tapes that are transcribed will be linked to the word when it appears on the web pages</p>
+<h3>
+
+<a href="http://dharug.dalang.com.au/Dharug/plugin_wiki/resource/Jacqueline%20Troy%20Sydney%20Languages%20Book">Read the Dharug Dictionary</a> &nbsp; <span style="margin-left:40px;"><a href="http://dharug.dalang.com.au/Dharug/plugin_wiki/resource/Dharawal%20Dictionary">Read the Dharawal Dictionary</a></span>
+</h3>
+<h2><strong><p>
+Resources on site:</p>
+</strong></h2>
+<p></p>
+<div class="col-sm-6">
+{{for resource in resources:}}
+{{if resource.type=='text':}}
+{{=resource.title}}
+<br>
+Collected by {{=resource.Collected_by}}
+<br>
+<a href={{=URL(c="plugin_wiki", f="resource", args=resource.title)}}>Read Document</a>
+<br>
+<p></p>
+{{pass}}
+{{pass}}
+</div>
+<div class="col-sm-6">
+{{for resource in resources:}}
+{{if resource.type!='text':}}
+{{=resource.title}}
+<br>
+Collected by {{=resource.Collected_by}}
+<br>
+<a href={{=URL(c="plugin_wiki", f="resource", args=resource.title)}}>Listen to tape, some tapes are transcribed into separate words</a>
+<br>
+<p></p>
+{{pass}}
+{{pass}}
+</div>

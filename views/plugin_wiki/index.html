@@ -1,0 +1,24 @@
+{{extend 'layout.html'}}
+
+<br>
+<div class="col-sm-12">
+<h3>Dharug Region</h3>
+{{if page:}}
+{{=plugin_wiki.render(page.summary)}}
+<div  class="btn btn-default btn-lg"> 
+<script>
+
+</script>
+<button class="btn" data-toggle="collapse" data-target="#demo">Show More</button>
+</div>
+<div id="demo" class="collapse">
+    {{=plugin_wiki.render(page.body)}}
+</div>
+    <p style="float:right">
+{{pass}}
+{{if plugin_wiki_editor:}}
+{{=A("Edit Page", _href=URL(c="plugin_wiki",f="edit_page",args="introduction"))}}
+{{pass}}
+    </p>
+
+</div>
