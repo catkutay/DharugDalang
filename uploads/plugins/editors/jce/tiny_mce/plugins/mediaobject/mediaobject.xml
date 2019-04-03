@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="2.1.0" type="plugin" group="system">
+	<name>Media Object</name>
+	<author>Ryan Demmer</author>
+	<creationDate>14 August 2008</creationDate>
+	<copyright>(C) 2006-2008 Ryan Demmer. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>ryandemmer@gmail.com</authorEmail>
+	<authorUrl>www.joomlacontenteditor.net</authorUrl>
+	<version>1.5.0</version>
+	<description>
+	<![CDATA[
+	<p>SWFObject type script for use with JCE Media/Media Manager or standalone.</p>
+	<p>Facilitates creation of xhtml media display and overcomes IE Activation issues</p>
+	<p>Should work with all modern browsers - FF 1.5 & 2.0, IE 6 & 7, Opera 9, Safari, Camino</p>
+	<br /><h3>Don't forget to <a href="index.php?option=com_plugins&amp;search=media%20object">publish Media Object!<a/></h3>
+	]]>
+	</description>
+	<params>
+		<param name="flash" size="50" default="9,0,124,0" label="Flash Version" />
+		<param name="windowsmedia" size="50" default="5,1,52,701" label="Windows Media Version" />
+		<param name="quicktime" size="50" default="6,0,2,0" label="Quicktime Version" />
+		<param name="realmedia" size="50" default="7,0,0,0" label="Real Media Version" />
+		<param name="shockwave" size="50" default="8,5,1,0" label="Shockwave Version" />
+	</params>
+	<files>
+		<filename plugin="mediaobject">mediaobject.php</filename>
+		<filename>mediaobject/index.html</filename>
+		<filename>mediaobject/js/index.html</filename>
+		<filename>mediaobject/js/mediaobject-150.js</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_mediaobject.ini</language>
+	</languages>
+</install>

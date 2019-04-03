@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="2.1.0" type="plugin" group="system" method="upgrade">
+	<name>System - JCE Utilities 2.2.4</name>
+	<author>Ryan Demmer</author>
+	<creationDate>08 October 2009</creationDate>
+	<copyright>(C) 2006-2009 Ryan Demmer. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>ryandemmer@gmail.com</authorEmail>
+	<authorUrl>www.joomlacontenteditor.net</authorUrl>
+	<version>2.2.4</version>
+	<description>JCE UTILITIES DESC</description>
+	<params>
+		<param name="theme" type="list" default="standard" label="JCE UTILITIES THEME" description="JCE UTILITIES THEME DESC">
+ 			<option value="standard">JCE UTILITIES STANDARD</option>
+			<option value="squeeze">JCE UTILITIES SQUEEZE</option>
+			<option value="shadow">JCE UTILITIES SHADOW</option>
+			<option value="light">JCE UTILITIES LIGHT</option>
+			<option value="custom">JCE UTILITIES CUSTOM</option>
+ 		</param>
+		<param name="themecustom" type="text" size="50" default="" label="JCE UTILITIES THEME CUSTOM" description="JCE UTILITIES THEME CUSTOM DESC"/>
+		<param name="themepath" type="text" size="50" default="plugins/system/jceutilities/themes" label="JCE UTILITIES THEME PATH" description="JCE UTILITIES THEME PATH DESC"/>
+		<param name="imgpath" type="text" size="50" default="plugins/system/jceutilities/img" label="JCE UTILITIES IMAGE PATH" description="JCE UTILITIES IMAGE PATH DESC"/>
+		<param name="fadespeed" type="text" default="500" label="JCE UTILITIES FADE SPEED" description="JCE UTILITIES FADE SPEED DESC"/>
+		<param name="scalespeed" type="text" default="500" label="JCE UTILITIES SCALE SPEED" description="JCE UTILITIES SCALE SPEED DESC"/>
+		<param name="overlay" type="radio" default="1" label="JCE UTILITIES OVERLAY" description="JCE UTILITIES OVERLAY DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param name="overlayopacity" type="text" default="0.8" label="JCE UTILITIES OVERLAY OPACITY" description="JCE UTILITIES OVERLAY OPACITY DESC" />
+		<param name="overlaycolor" type="text" default="#000000" label="JCE UTILITIES OVERLAY COLOR" description="JCE UTILITIES OVERLAY COLOR DESC" />
+		<param name="width" type="text" default="640" label="JCE UTILITIES WIDTH" description="JCE UTILITIES WIDTH DESC" />
+		<param name="height" type="text" default="480" label="JCE UTILITIES HEIGHT" description="JCE UTILITIES HEIGHT DESC" />
+		<param name="resize" type="radio" default="1" label="JCE UTILITIES RESIZE" description="JCE UTILITIES RESIZE DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param name="icons" type="radio" default="1" label="JCE UTILITIES ICONS" description="JCE UTILITIES ICONS DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param name="hideobjects" type="radio" default="1" label="JCE UTILITIES HIDEOBJECTS" description="JCE UTILITIES HIDEOBJECTS DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param name="scrollpopup" type="radio" default="1" label="JCE UTILITIES SCROLLPOPUP" description="JCE UTILITIES SCROLLPOPUP DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param name="components" type="text" size="50" default="" label="JCE UTILITIES COMPONENTS" description="JCE UTILITIES COMPONENTS DESC" />
+		<param name="dynamic_themes" type="radio" default="0" label="JCE UTILITIES DYNAMIC THEMES" description="JCE UTILITIES DYNAMIC THEMES DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param type="spacer" />
+		<param name="tipclass" type="text" default="tooltip" label="JCE UTILITIES TOOLTIP CLASS" description="JCE UTILITIES TOOLTIP CLASS DESC"/>
+		<param name="tipopacity" type="text" default="1" label="JCE UTILITIES TOOLTIP OPACITY" description="JCE UTILITIES TOOLTIP OPACITY DESC"/>
+		<param name="tipspeed" type="text" default="150" label="JCE UTILITIES TOOLTIP SPEED" description="JCE UTILITIES TOOLTIP SPEED DESC"/>
+		<param name="tipposition" type="list" default="br" label="JCE UTILITIES TOOLTIP POSITION" description="JCE UTILITIES TOOLTIP POSITION DESC.">
+ 			<option value="tl">JCE UTILITIES TOP LEFT</option>
+ 			<option value="tr">JCE UTILITIES TOP RIGHT</option>
+			<option value="tc">JCE UTILITIES TOP CENTRE</option>
+ 			<option value="bl">JCE UTILITIES BOTTOM LEFT</option>
+			<option value="br">JCE UTILITIES BOTTOM RIGHT</option>
+ 			<option value="bc">JCE UTILITIES BOTTOM CENTRE</option>
+ 		</param>
+		<param name="tipoffsets_x" type="text" default="16" label="JCE UTILITIES TOOLTIP X OFFSET" description="JCE UTILITIES TOOLTIP X OFFSET DESC"/>
+		<param name="tipoffsets_y" type="text" default="16" label="JCE UTILITIES TOOLTIP Y OFFSET" description="JCE UTILITIES TOOLTIP Y OFFSET DESC"/>
+		<param type="spacer" />
+		<!--param name="pngfix" type="radio" default="0" label="JCE UTILITIES PNG FIX" description="JCE UTILITIES PNG FIX DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param name="wmode" type="radio" default="0" label="JCE UTILITIES WMODE FIX" description="JCE UTILITIES WMODE FIX DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param-->
+		<param name="legacy" type="radio" default="0" label="JCE UTILITIES LEGACY" description="JCE UTILITIES LEGACY DESC">
+ 			<option value="1">YES</option>
+			<option value="0">NO</option>
+ 		</param>
+		<param name="flash" type="text" size="50" default="10,0,22,87" label="JCE UTILITIES FLASH" />
+		<param name="windowsmedia" type="text" size="50" default="5,1,52,701" label="JCE UTILITIES WINDOWS MEDIA" />
+		<param name="quicktime" type="text" size="50" default="6,0,2,0" label="JCE UTILITIES QUICKTIME" />
+		<param name="realmedia" type="text" size="50" default="7,0,0,0" label="JCE UTILITIES REAL MEDIA" />
+		<param name="shockwave" type="text" size="50" default="8,5,1,0" label="JCE UTILITIES SHOCKWAVE" />
+	</params>
+	<files>
+		<file plugin="jceutilities">jceutilities/css/index.html</file>
+		<file>jceutilities/css/jceutilities.css</file>
+		<file>jceutilities/img/blank.gif</file>
+		<file>jceutilities/img/index.html</file>
+		<file>jceutilities/img/zoom-img.png</file>
+		<file>jceutilities/img/zoom-link.gif</file>
+		<file>jceutilities/index.html</file>
+		<file>jceutilities/js/index.html</file>
+		<file>jceutilities/js/jceutilities-src.js</file>
+		<file>jceutilities/js/jceutilities.js</file>
+		<file>jceutilities/js/mediaobject.js</file>
+		<file>jceutilities/themes/index.html</file>
+		<file>jceutilities/themes/light/css/index.html</file>
+		<file>jceutilities/themes/light/css/style.css</file>
+		<file>jceutilities/themes/light/css/style_ie6.css</file>
+		<file>jceutilities/themes/light/img/close.gif</file>
+		<file>jceutilities/themes/light/img/index.html</file>
+		<file>jceutilities/themes/light/img/loader.gif</file>
+		<file>jceutilities/themes/light/img/next.gif</file>
+		<file>jceutilities/themes/light/img/prev.gif</file>
+		<file>jceutilities/themes/light/index.html</file>
+		<file>jceutilities/themes/light/popup.html</file>
+		<file>jceutilities/themes/shadow/css/index.html</file>
+		<file>jceutilities/themes/shadow/css/style.css</file>
+		<file>jceutilities/themes/shadow/img/close.png</file>
+		<file>jceutilities/themes/shadow/img/index.html</file>
+		<file>jceutilities/themes/shadow/img/loader.gif</file>
+		<file>jceutilities/themes/shadow/img/next.png</file>
+		<file>jceutilities/themes/shadow/img/prev.png</file>
+		<file>jceutilities/themes/shadow/index.html</file>
+		<file>jceutilities/themes/shadow/popup.html</file>
+		<file>jceutilities/themes/squeeze/css/index.html</file>
+		<file>jceutilities/themes/squeeze/css/style.css</file>
+		<file>jceutilities/themes/squeeze/css/style_ie6.css</file>
+		<file>jceutilities/themes/squeeze/img/close.png</file>
+		<file>jceutilities/themes/squeeze/img/index.html</file>
+		<file>jceutilities/themes/squeeze/img/loader.gif</file>
+		<file>jceutilities/themes/squeeze/img/next.png</file>
+		<file>jceutilities/themes/squeeze/img/prev.png</file>
+		<file>jceutilities/themes/squeeze/index.html</file>
+		<file>jceutilities/themes/squeeze/popup.html</file>
+		<file>jceutilities/themes/standard/css/index.html</file>
+		<file>jceutilities/themes/standard/css/style.css</file>
+		<file>jceutilities/themes/standard/css/style_ie6.css</file>
+		<file>jceutilities/themes/standard/img/close.png</file>
+		<file>jceutilities/themes/standard/img/index.html</file>
+		<file>jceutilities/themes/standard/img/loader.gif</file>
+		<file>jceutilities/themes/standard/img/next.png</file>
+		<file>jceutilities/themes/standard/img/prev.png</file>
+		<file>jceutilities/themes/standard/index.html</file>
+		<file>jceutilities/themes/standard/popup.html</file>
+		<file>jceutilities.php</file>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_jceutilities.ini</language>
+	</languages>
+</install>

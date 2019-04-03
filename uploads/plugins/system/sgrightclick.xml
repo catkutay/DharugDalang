@@ -1,0 +1,27 @@
+
+<install version="1.5" type="plugin" group="system"> 
+    <name>System - jNoRightClick </name>
+    <author>Val Markov</author>
+    <creationDate>March 2010</creationDate>
+    <copyright>Copyright (C) 2010 SiteGround.com - All rights reserved.</copyright>
+    <authorEmail>val@siteground.com</authorEmail>
+    <authorUrl>http://www.siteground.com/</authorUrl>
+    <version>1.0</version>
+    <license>GPL, see LICENSE</license>
+    <description>jNoRightClick is a Joomla 1.5 plugin created by SiteGround. It prevents your visitors from using the right mouse button on your Joomla website, which is an effective way to protect your texts and photos from being copied without authorization.</description>
+        
+    <files>
+        <filename plugin="sgrightclick">sgrightclick.php</filename>
+    </files>
+    <params>
+        <param name="errmsg" type="text" default="Right clicking is disabled on this page!" label="Error Message" description="Displays an error message when a user tries to right-click on your page." />
+        <param name="allow_admin" type="radio" default="1" label="Allow in admin area" description="Allows right-click usage in the administrator area.">
+            <option value="1">Enable</option>
+            <option value="0">Disable</option>
+        </param>
+        <param name="allow_users" type="radio" default="1" label="Allow for users" description="Allows right-click usage by already logged in users (i.e disables only for guests). Please note that changing this will also affect administrator area option as well, since to access it you need to be logged in.">
+            <option value="1">Enable</option>
+            <option value="0">Disable</option>
+        </param>
+    </params>
+</install>
