@@ -1,0 +1,43 @@
+/**		JoomSpirit CSS file for typo**/
+body {font-family: "Lucida Grande", Arial,"Trebuchet MS",Verdana,"Lucida Grande",Tahoma,Helvetica,Sans-Serif;color:#000;} 
+p {margin: 8px 0;}
+h1, h2, h3, h4 {font-family: "Lucida Grande", "Trebuchet MS",Verdana,"Lucida Grande",Tahoma,Helvetica,Sans-Serif;text-decoration: none;text-transform:none;font-weight:normal;margin:8px 0 8px 0;}
+h1 {font-size:160%;}
+h2 {font-size:140%;letter-spacing:1px;}
+h3 {font-size:120%;}
+h4 {font-size:110%}
+/**	LEFT COLUMN*/
+#site_name h2 {font-family:  "Lucida Grande",  Verdana;
+font-size: 36px;
+line-height: 36px;
+text-transform: capitalize;letter-spacing: 3px;font-weight: normal;color:#d3a543;}
+#site_name h2 span {color: #fff;}
+#slogan {left:-100px;font-family: "Lucida Grande", arial,  Verdana;font-size: 13px;line-height: 13px;text-transform: lowercase;letter-spacing: 0px;font-weight: normal;color:#d3a543;}
+a:hover #site_name {text-decoration:none;}
+/**	NAV MAIN **/
+#nav_main ul li {border: 0px solid #181b18; margin-top:20px;}
+#nav_main ul li li{border:none;;}
+#nav_main ul a, #nav_main ul span.separator {color: #fff;
+font-family: "Lucida Grande", Arial,Tahoma,Helvetica,Sans-Serif;
+line-height:40px;text-transform: capitalize;letter-spacing: -0.5px;font-weight: normal;font-size:150%;}
+/* All menu links on hover or focus */
+#nav_main ul li a:hover, #nav_main ul li a:focus, #nav_main ul li span.separator:hover, #nav_main ul li span.separator:focus{color:#d3a543;}
+#nav_main ul .active a, #nav_main ul .active span.separator {color: #d3a543;}
+/* sub menu links on hover or focus */#nav_main ul li ul a:hover, #nav_main ul li ul a:focus, #nav_main ul li ul .active a, #nav_main ul li ul li ul .active a,#nav_main ul li ul span.separator:hover, #nav_main ul li ul span.separator:focus, #nav_main ul li ul .active span.separator, #nav_main ul li ul li ul .active span.separator {color:#d3a543;}
+#nav_main ul .active ul a , #nav_main ul li ul .active ul a,#nav_main ul .active ul span.separator , #nav_main ul li ul .active ul span.separator {color: #fff;}
+#nav_main ul li li a, #nav_main ul li li span.separator{ /* Just submenu links*/	position:relative;color:#fff;float:none;font-size:100%;line-height: 28px;padding-left:6px;text-transform:capitalize;font-family: "Lucida Grande",Arial,Tahoma,Helvetica,Sans-Serif;}
+#nav_main ul li li a:hover, #nav_main ul li li a:focus, #nav_main ul li li span.separator:hover, #nav_main ul li li span.separator:focus{color:#d3a543;}
+/**	RIGHT COLUMN*//**		LINK		**/
+a {text-decoration : none;}
+a:hover {text-decoration : underline;}
+a:active, a:focus {outline:none;}
+/*	List  */ul.normal, ul.check {margin-left:10px;margin-top:10px;padding-left:0;}.normal li, .check li {background: url(../images/list_normal.gif) 0 2px no-repeat;padding-left: 24px;list-style:none;margin:6px 0;}
+.check li {background: url(../images/list_check.gif) 0 2px no-repeat;}
+/**	Quotation*/
+blockquote.white, blockquote.brown {margin: 10px 30px 10px 30px;padding: 10px 35px 10px 35px;border: none;background: url(../images/quote_white.gif) 0 5px no-repeat;text-align:justify;font-style:italic;font-size:105%;}blockquote.brown {background: url(../images/quote_brown.gif) 0 5px no-repeat;}
+blockquote.white p, blockquote.brown p {margin: 0px -35px -10px 0px;padding: 0px 35px 10px 0px;background: url(../images/quote_white_end.gif) 100%  no-repeat;}
+blockquote.brown p {background: url(../images/quote_brown_end.gif) 100%  no-repeat;}
+/**  DIV Info  **/
+.info {line-height:25px;padding-left:30px;border-top:1px solid #fff;border-bottom:1px solid #fff;background: #ddd url(../images/logo_info.gif) 4px 3px no-repeat;margin: 10px 0;}/** 	TOOL TIPS		**/* .tips ,* .tips2{color:blue;cursor:pointer;}.tool-tip {color: #555;width: 139px;z-index: 13000;} .tool-title {font-weight: bold;font-size: 115%;margin: 0;color: #ff9933;padding: 8px 8px 4px;background: transparent url(../images/bubble.png) top left no-repeat;} .tool-text {font-size: 100%;padding: 4px 8px 8px;background: transparent url(../images/bubble.png) bottom right no-repeat;}
+/**		FOOTER SITE*/div#footer {color:#666;font-size:90%;}#bottom_nav a {color:#292022;}#bottom_nav a:hover, #bottom_nav .active a {text-decoration:underline;}
+

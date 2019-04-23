@@ -1,0 +1,208 @@
+/* ----[ LINKS ]----*/
+
+
+
+
+/* all menu links */
+#nav_main ul a, #nav_main ul span.separator {
+text-decoration:none;
+display:block;
+padding-left:7px;
+margin-bottom:50px;
+}
+
+/* Just main menu links --[for non-javascript users this applies to submenu links as well]*/
+#nav_main ul a, #nav_main ul span.separator {
+margin:0;
+}
+/* Just sub menu links */
+#nav_main ul li li span.separator, #nav_main ul li li a{
+text-align:left;
+}
+
+
+
+/* All menu links on hover or focus */
+#nav_main ul li a:hover,#nav_main ul .active a, #nav_main ul li a:focus,
+#nav_main ul li span.separator:hover,#nav_main ul .active span.separator, #nav_main ul li span.separator:focus {
+background : none;
+}
+
+
+
+/* sub menu links on hover or focus */
+#nav_main ul li ul a:hover, #nav_main ul li ul a:focus,
+#nav_main ul li ul span.separator:hover, #nav_main ul li ul span.separator:focus
+{
+background : none;
+}
+
+
+
+#nav_main ul .active ul a, #nav_main ul .active ul span.separator {
+background:none;
+border-bottom:none;
+}
+
+
+
+/* Parent Sub Menu Links ---[javascript users only]*/
+.subMenuParentBtn{ 
+background: url(../img/arrow_right.gif) right center no-repeat;  
+}
+
+
+
+/* Parent Sub Menu Links on hover or focus ---[javascript users only]*/
+.subMenuParentBtnFocused{ 
+background: url(../img/arrow_right_over.gif) right center no-repeat;  
+}
+
+
+
+/* Parent Main Menu Links ---[javascript users only]*/
+.mainMenuParentBtn{	
+background: url(../img/arrow_down.gif) right center no-repeat; 
+}
+
+
+
+/* Parent Main Menu Links on hover or focus ---[javascript users only]*/
+.mainMenuParentBtnFocused{	
+background: url(../img/arrow_down_over.gif) right center no-repeat; 
+}
+
+
+
+/* ----[ OLs ULs, LIs, and DIVs ]----*/
+
+
+
+/* Submenu Outer Wrapper - each submenu is inside a div with this class - javascript users only */
+.smOW{ 
+display:none; 
+position: absolute; 
+overflow:hidden; 
+/*the 2px left & right padding lets you have a 1px border 
+ on the ul or ol inside since overflow is set to hidden*/
+padding:0 2px;
+margin:0 0 0 -2px;
+}
+
+
+
+/* All ULs and OLs */
+#nav_main ul, #nav_main ul ul, #nav_main ul ol, #subMenusContainer ul, #subMenusContainer ol { 
+padding: 0;
+margin: 0;
+list-style: none;
+line-height: 1em;
+}
+
+
+
+/* All submenu OLs and ULs */
+#nav_main ul ol, #nav_main ul ul, #subMenusContainer ul, #subMenusContainer ol {	
+
+/*border around submenu goes here*/	 
+background-color: #000;
+border:none;
+left:0;
+}
+
+
+
+/* List items in main menu --[for non-javascript users this applies to submenus as well]  */
+
+
+
+#nav_main ul li { 
+
+/*great place to use a background image as a divider*/
+display:block;
+list-style:none;
+position:relative;
+background: transparent url(../images/puce_menu.gif) 0 10px no-repeat;
+padding-left:10px;
+height:28px;
+}
+
+#nav_main ul li:hover, #nav_main ul li.active {
+background: transparent url(../images/puce_menu_hover.gif) 0 10px no-repeat;
+}
+
+#subMenusContainer li{
+list-style: none;
+}
+
+#subMenusContainer li, #nav_main ul li{
+margin-bottom:-0.99em;
+}
+#subMenusContainer li a{
+position:relative;
+}
+
+
+/* main menu ul or ol elment */
+#nav_main ul{
+display:block;
+position:relative;
+list-style:none;
+margin:0 0 0 0;
+z-index:100;	
+text-align: left;
+width:15em;
+}
+
+
+
+#subMenusContainer{	display:block; 	position:absolute;	top:0;	left:0;	width:100%;	height:0;	overflow:visible;	z-index:1000000000; }
+
+
+
+
+/* --------------------------[ The below is just for non-javscript users ]--------------------------*/
+#nav_main ul li li{	float:none;padding-left:8px;height:28px;}
+
+#nav_main ul li li a{ /* Just submenu links*/	
+position:relative;
+float:none;
+font-size:110%;
+}
+
+
+
+#nav_main ul li ul { /* second-level lists */
+position: absolute;
+width: 14em;
+margin-left: -1000em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
+margin-top: -2.3em;
+border: 3px solid #bbb;
+background-color:#292022;
+}
+
+/* third-and-above-level lists */
+
+
+
+#nav_main ul li ul ul { margin: -1em 0 0 -1000em; }
+#nav_main ul li:hover ul ul {	margin-left: -1000em; }
+
+
+
+/* lists nested under hovered list items */
+
+
+
+#nav_main ul li:hover ul{	margin-left: 14.5em; }
+#nav_main ul li li:hover ul {	margin-left: 13em; margin-top:-2.4em;}
+
+
+
+/* extra positioning rules for limited noscript keyboard accessibility */
+#nav_main ul li a:focus + ul {  margin-left: 14.5em; margin-top:-2.3em; }
+#nav_main ul li li a:focus + ul { left:0; margin-left: 1010em; margin-top:-2.4em;}
+#nav_main ul li li a:focus {left:0;  margin-left:1000em; width:14em;  margin-top:0;}
+#nav_main ul li li li a:focus {left:0; margin-left: 2010em; width: 14em;  margin-top:0em;}
+#nav_main ul li:hover a:focus{ margin-left: 0; }
+#nav_main ul li li:hover a:focus + ul { margin-left: 13em; }

@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<install version="1.5" type="template">
+	<name>brown</name>
+	<creationDate>05/08/2009</creationDate>
+	<author>JoomSpirit</author>
+	<copyright>creative commons 2.0</copyright>
+	<authorEmail>postmaster@joomspirit.fr</authorEmail>
+	<authorUrl>http://www.joomspirit.fr</authorUrl>
+	<version>1.0</version>
+	<description>&lt;h2&gt;IMPORTANT : Read the settings for this template&lt;/h2&gt;
+	&lt;h3&gt;
+	&lt;span style="font-weight:bold;color:red;"&gt;All informations is in your zip template in "help" directory : you must just open the index.html&lt;/span&gt; &lt;br /&gt;
+	You will find in &lt;span style="color:blue;"&gt;how to configure the template, use the typography, the module positions for your modules, how to display tooltips, or another mootools effect of this template.&lt;/span&gt; &lt;br /&gt;
+	&lt;/h3&gt;
+	</description>
+
+	<files>
+		<filename>favicon.ico</filename>
+		<filename>index.html</filename>
+		<filename>index.php</filename>
+		<filename>params.ini</filename>
+		<filename>template_thumbnail.png</filename>
+		<filename>css/color.css</filename>
+		<filename>css/ie6.css</filename>
+		<filename>css/index.html</filename>
+		<filename>css/main.css</filename>
+		<filename>css/MenuMatic-ie6.css</filename>
+		<filename>css/MenuMatic.css</filename>
+		<filename>css/modules.css</filename>
+		<filename>css/nav.css</filename>
+		<filename>css/typo.css</filename>
+		<filename>html/index.html</filename>
+		<filename>html/modules.php</filename>
+		<filename>html/com_content/index.html</filename>
+		<filename>html/com_content/archive/default.php</filename>
+		<filename>html/com_content/archive/index.html</filename>
+		<filename>html/com_content/article/default.php</filename>
+		<filename>html/com_content/article/index.html</filename>
+		<filename>html/com_content/category/blog.php</filename>
+		<filename>html/com_content/category/blog_item.php</filename>
+		<filename>html/com_content/category/default.php</filename>
+		<filename>html/com_content/category/index.html</filename>
+		<filename>html/com_content/frontpage/default.php</filename>
+		<filename>html/com_content/frontpage/default_item.php</filename>
+		<filename>html/com_content/frontpage/index.html</filename>
+		<filename>html/com_content/section/blog.php</filename>
+		<filename>html/com_content/section/blog_item.php</filename>
+		<filename>html/com_content/section/default.php</filename>
+		<filename>html/com_content/section/index.html</filename>
+		<filename>html/mod_syndicate/default.php</filename>
+		<filename>html/mod_syndicate/index.html</filename>
+		<filename>images/article_separator.gif</filename>
+		<filename>images/brick.jpg</filename>
+		<filename>images/fond_left.gif</filename>
+		<filename>images/bubble.png</filename>
+		<filename>images/icon-date.gif</filename>
+		<filename>images/icon-search.gif</filename>
+		<filename>images/icon-search.png</filename>
+		<filename>images/icon-user.gif</filename>
+		<filename>images/index.html</filename>
+		<filename>images/list_check.gif</filename>
+		<filename>images/list_normal.gif</filename>
+		<filename>images/logo_info.gif</filename>
+		<filename>images/puce_menu.gif</filename>
+		<filename>images/puce_menu_hover.gif</filename>
+		<filename>images/quote_white.gif</filename>
+		<filename>images/quote_white_end.gif</filename>
+		<filename>images/quote_brown.gif</filename>
+		<filename>images/quote_brown_end.gif</filename>
+		<filename>images/sand.jpg</filename>
+		<filename>images/wood01.jpg</filename>
+		<filename>images/wood02.jpg</filename>
+		<filename>lib/index.html</filename>
+		<filename>lib/js/index.html</filename>
+		<filename>lib/js/effect_nav.js</filename>
+		<filename>lib/js/tooltips.js</filename>
+		<filename>lib/php/index.html</filename>
+		<filename>lib/php/layout.php</filename>
+	
+	</files>
+		
+	<positions>
+
+			<position>menu</position>
+			<position>image</position>
+			<position>left</position>
+			<position>big_left</position>
+			<position>right</position>
+			<position>top_menu</position>
+			<position>top</position>
+			<position>search</position>
+			<position>bottom_nav</position>
+			<position>inset</position>
+			<position>banner</position>
+			<position>header</position>
+			<position>footer</position>
+			<position>newsflash</position>
+			<position>legals</position>
+			<position>pathway</position>
+			<position>breadcrumb</position>
+			<position>user1</position>
+			<position>user2</position>
+			<position>user3</position>
+			<position>user4</position>
+			<position>user5</position>
+			<position>user6</position>
+			<position>user7</position>
+			<position>user8</position>
+			<position>user9</position>
+			<position>advert1</position>
+			<position>advert2</position>
+			<position>advert3</position>
+			<position>debug</position>
+			<position>syndicate</position>
+
+		</positions>
+
+	<params>
+
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Site title" />
+
+			<param name="firstName" type="text" default="J" size="20" label="First part of site name" description="Enter the first part for your site name with a orange color." />
+			<param name="secondName" type="text" default="oomSpirit" size="20" label="Second part of site name" description="Enter the second part for your site name with a white color." />
+		
+			<param name="slogan" type="text" default="webmaster freelance" size="30" label="Your slogan" description="Enter your slogan. If no slogan, leave empty." />
+		
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Background" />
+		
+			<param name="background" type="list" default="wood02" label="Select your background" description="If you want change the background in the css files, select the none value.">
+				<option value="wood01">wood 01</option>
+				<option value="wood02">wood 02</option>
+				<option value="sand">sand</option>
+				<option value="brick">brick</option>
+				<option value="none">none</option>
+			</param>
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Template width" />
+
+		<param name="width" type="list" default="960px" label="Select template width" description="Select template width : fixed in px or fluid in %">
+			<option value="780px">780px</option>
+			<option value="860px">860px</option>
+			<option value="960px">960px</option>
+			<option value="1160px">1160px</option>
+			<option value="70%">70 %</option>
+			<option value="80%">80 %</option>
+			<option value="90%">90 %</option>
+			<option value="95%">95 %</option>
+		</param>
+		
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Template height" />
+
+		<param name="height" type="list" default="600" label="Select template height" description="Select template height : fixed in px or fluid">
+			<option value="fluid">fluid</option>
+			<option value="400">400px</option>
+			<option value="450">450px</option>
+			<option value="500">500px</option>
+			<option value="550">550px</option>
+			<option value="600">600px</option>
+			<option value="650">650px</option>
+			<option value="700">700px</option>
+			<option value="750">750px</option>
+		</param>
+		
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Font size" />
+
+		<param name="fontSize" type="list" default="13px" label="Default font size" description="Set the default font size when template is loaded for the first time">
+			<option value="11px">smallest</option>
+			<option value="12px">small</option>
+			<option value="13px">normal</option>
+			<option value="14px">big</option>
+			<option value="15px">biggest</option>
+		</param>
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Effect Mootools" />
+		
+		<param name="show_effect_nav" type="list" default="0" label="Effect on nav main" description="Show the effect of nav main.">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		
+		<param name="show_tooltips" type="list" default="0" label="Use mootools tooltips" description="All informations for use it in help directory on your template.">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Footer" />
+
+		<param name="footer" type="list" default="1" label="Show footer" description="Show footer site and copyright">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		<param name="copyright" type="text" default="Your company name" size="40" label="Your copyright" description="Enter your copyright for the footer site" />
+
+
+		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param type="spacer" default="Others" />
+
+		<param name="showPathway" type="list" default="1" label="Show Pathway" description="">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+				
+	</params>
+
+</install>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content">
+	<name>Content - EMBED</name>
+	<author>Dioscouri Design</author>
+	<creationDate>June 2008</creationDate>
+	<copyright>(C) 2008 Dioscouri Design</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>info@dioscouri.com</authorEmail>
+	<authorUrl>www.dioscouri.com</authorUrl>
+	<version>1.5</version>
+	<files>
+		<filename plugin="embed">embed.php</filename>
+		<filename plugin="embed">embed/embedFetchContent.php</filename>
+		<filename plugin="embed">embed/embedGenericImage.php</filename>
+	</files>
+
+	<description>
+	<![CDATA[
+				BASIC USAGE: 
+				{embed where=content&where_id=1,2,3} OR 
+				{embed class_sfx=-inner&where=category&where_id=1,2,3,4,5} OR 
+				{embed where=category&where_id=1,2,3,4,5&ordering=hits}
+				-- FOR DETAILED USAGE INSTRUCTIONS, GO TO http://www.dioscouri.com
+
+	]]>
+	</description>
+
+	<params>
+		<param name="class_sfx" type="text" default="" label="Bot Class Suffix" description="A suffix to be applied to all css classes used in the mambot output, this allows individual styling" />
+		<param name="processon" type="list" default="article" label="Process Bot Tag on" description="Select menu item type to process bot tag">
+			<option value="blog">Blog - Content Section/Category</option>
+			<option value="article">Link - Content Item/Static Content</option>
+			<option value="both">Both Menu Types Above</option>
+		</param>
+		<param name="handler" type="list" default="com_content" label="Article Link Handler" description="Select ether D4J eZine Joomla! extension or Joomla! com_content component to handle the 'Read more...'">
+			<option value="com_content">com_content</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="where" type="list" default="category" label="Retrieve Contents From" description="Select source to retrieve articles. Note: 'Related Article' only affected in full content item reading page">
+			<option value="related">Related Article</option>
+			<option value="section">Content Section</option>
+			<option value="category">Content Category</option>
+			<option value="content">Content Item</option>
+			<option value="newsfeed">Newsfeed Category</option>
+			<option value="newsfeed_item">Newsfeed Item</option>
+		</param>
+		<param name="where_id" type="text" default="" label="Source ID" description="Selects articles from a specific Content Section or Content Category or Content Item or Newsfeed Category or Newsfeed Item or set of Content Section or Content Category or Content Item or Newsfeed Category or Newsfeed Item (to specify more than one Content Section or Content Category or Content Item or Newsfeed Category or Newsfeed Item, seperate with a comma , ). Note: if you select 'Related Article' for 'Retrieve Contents From' parameter above then please enter one of following values for 'Source ID': meta_keyword, same_section, same_category" />
+		<param name="nodup" type="radio" default="1" label="No Duplication" description="No duplication of displayed article. Useful when you have multiple instances of the module in one page. Note: only affect internal source (Content Section/Content Category/Content Item).">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="ordering" type="list" default="order" label="Ordering" description="Order that the article will be displayed in (not applied for articles retrieved from Newsfeed Category/Newsfeed Item)">
+			<option value="random">Randomize</option>
+			<option value="date">Oldest first</option>
+			<option value="rdate">Most recent first</option>
+			<option value="alpha">Title Alphabetical</option>
+			<option value="ralpha">Title Reverse-Alphabetical</option>
+			<option value="hits">Most Hits</option>
+			<option value="rhits">Least Hits</option>
+			<option value="order">Ordering</option>
+		</param>
+		<param name="count" type="text" default="5" label="Article Count" description="The number of articles to display" />
+		<param name="rowcount" type="text" default="1" label="Articles per Row" description="The number of articles to show in one row" />
+		<param name="bots" type="radio" default="1" label="Load Bots" description="Either or not load the content bots/plugins group to process bot-tag found in content?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="width" type="text" default="100%" label="Width of Module Area" description="The width either in '%' or 'px' of the area where module will be loaded in" />
+		<param name="display" type="list" default="2" label="Display Type" description="How to display retrieved article?">
+			<option value="0">Title Only</option>
+			<option value="1">Text Only</option>
+			<option value="2">Title &amp; Text</option>
+		</param>
+		<param name="hseparator" type="text" default="" label="Horizontal Separator" description="Enter the full URL to the image you want to use as horizontal separator between articles rows. Leave blank to use Joomla default (empty 'span' element applied 'article_separator' css class)" />
+		<param name="hleftspace" type="text" default="5" label="HSeparator Left Space" description="Space (in pixel) before horizontal separator. Only used if horizontal separator defined" />
+		<param name="hrightspace" type="text" default="10" label="HSeparator Right Space" description="Space (in pixel) after horizontal separator. Only used if horizontal separator defined" />
+		<param name="vseparator" type="text" default="" label="Vertical Separator" description="Enter the full URL to the image you want to use as vertical separator between articles in one row. Leave blank if you dont want to have this" />
+		<param name="vtopspace" type="text" default="5" label="VSeparator Top Space" description="Space (in pixel) above vertical separator. Only used if vertical separator defined" />
+		<param name="vbottomspace" type="text" default="10" label="VSeparator Bottom Space" description="Space (in pixel) below vertical separator. Only used if vertical separator defined" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="date" type="radio" default="1" label="Attach Published Date" description="Attach published date into article title or not?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="datepos" type="list" default="after" label="Date Position" description="The position of published date">
+			<option value="before">Before Title</option>
+			<option value="after">After Title</option>
+			<option value="joomla">Joomla Style</option>
+		</param>
+		<param name="dateform" type="text" default="(d.m.Y)" label="Date Format" description="Followed by PHP`s 'date' function format" />
+		<param name="datelinked" type="radio" default="0" label="Hyperlink Date" description="Hyperlink date published along with 'Linked Title'?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="thumbnail" type="radio" default="1" label="Show Thumbnail" description="If 'Display Type' is 'Title Only', automatically get the image associated with the first {mosimage} bot tag and display as thumbnail for article (not applied for articles retrieved from Newsfeed Category/Newsfeed Item)">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="thumbpos" type="list" default="float_left" label="Thumbnail Position" description="The position of thumbnail">
+			<option value="float_left">Float Left</option>
+			<option value="float_right">Float Right</option>
+			<option value="title_above">Above Title</option>
+			<option value="title_below">Below Title</option>
+			<option value="intro_above">Above Intro Text</option>
+			<option value="intro_below">Below Intro Text / Above Full Text</option>
+			<option value="full_below">Below Full Text / Above Read More</option>
+			<option value="more_below">Below Read More</option>
+		</param>
+		<param name="thumbdefault" type="text" default="images/M_images/arrow.png" label="Default Thumbnail" description="Relative path from Joomla root directory to default thumbnail image used when article has no any image embeded in" />
+		<param name="linkedthumb" type="list" default="0" label="Thumbnail Link To" description="How to hyperlink thumbnail? Note: 'Popup Real Dimension Image' only effective if dimension of source image and dimension of thumbnail image are differ.">
+			<option value="0">Dont Hyperlink Thumbnail</option>
+			<option value="1">Full Article Reading Page</option>
+			<option value="2">Popup Real Dimension Image</option>
+		</param>
+		<param name="thumbwidth" type="text" default="64" label="Thumbnail Width" description="The width of thumbnail image" />
+		<param name="thumbheight" type="text" default="48" label="Thumbnail Height" description="The height of thumbnail image" />
+		<param name="thumbmethod" type="list" default="2" label="Process Method" description="Only resize if the original image is larger than the width and/or height specified below or expand also?">
+			<option value="0">Reduce Only</option>
+			<option value="1">Enlarge Only</option>
+			<option value="2">Both Reduce/Enlarge</option>
+		</param>
+		<param name="thumbratio" type="list" default="3" label="Aspect Ratio" description="* No: do not keep the image aspect ratio, just reduce/enlarge it to the new width and height defined above. * Fit Width: keep image aspect ratio and resize it to fit the new width defined above. * Fit Height: keep image aspect ratio and resize it to fit the new height defined above. * Fit Both: keep image aspect ratio and resize it to fit the new width and height defined above">
+			<option value="0">No</option>
+			<option value="1">Fit Width</option>
+			<option value="2">Fit Height</option>
+			<option value="3">Fit Both</option>
+		</param>
+		<param name="realthumb" type="radio" default="0" label="Real Thumbnail" description="Dont use HTML &lt;img&gt; tag`s 'width' and 'height' attributes to resize image, create real thumbnail image instead (require GD2 library compiled with PHP)?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="thumbpath" type="text" default="images/thumbnails" label="Thumbnail Directory" description="If you want to create real thumbnail image, enter the relative path from Joomla root directory to where you want to store thumbnail created by this module. The thumbnail directory must be writeable (chmod it to 0777 if in Unix/Linux system)" />
+		<param name="imagelib" type="list" default="gd2" label="Image Library" description="Image library/software to handle creation of real thumbnail">
+			<option value="gd2">GD2</option>
+			<option value="imagemagick">ImageMagick</option>
+			<option value="netpbm">NetPBM</option>
+		</param>
+		<param name="imglibpath" type="text" default="" label="Path to ImageMagick/NetPBM" description="Server path to where ImageMagick / NetPBM is installed in your server" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="linked" type="radio" default="0" label="Linked Title" description="Make the article title linked or not?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="pdf" type="radio" default="0" label="PDF Button" description="Show PDF button for the article retrieved when article title is not set to hide (not applied for articles retrieved from Newsfeed Category/Newsfeed Item)?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="print" type="radio" default="0" label="Print Button" description="Show print button for the article retrieved when article title is not set to hide (not applied for articles retrieved from Newsfeed Category/Newsfeed Item)?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="email" type="radio" default="0" label="Print Button" description="Show email button for the article retrieved when article title is not set to hide (not applied for articles retrieved from Newsfeed Category/Newsfeed Item)?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="icons" type="list" default="1" label="Icons or Text" description="Use icons or text for buttons when article title is not set to hide?">
+			<option value="0">Text</option>
+			<option value="1">Icons</option>
+		</param>
+		<param name="buttonpos" type="list" default="beside" label="Button Position" description="Position of buttons when article title is not set to hide">
+			<option value="beside">Beside Title</option>
+			<option value="below">Below Title</option>
+		</param>
+		<param name="buttonarrange" type="list" default="horizontal" label="Button Arrangement" description="How to arrange buttons when article title is not set to hide?">
+			<option value="horizontal">Horizontal</option>
+			<option value="vertical">Vertical</option>
+		</param>
+		<param name="author" type="radio" default="0" label="Show Author" description="Show author of the article retrieved when article title is not set to hide (not applied for articles retrieved from Newsfeed Category/Newsfeed Item)?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="onlyintro" type="radio" default="1" label="Intro Only" description="Show content`s intro text only or both intro and full text (not applied for articles retrieved from Newsfeed Category/Newsfeed Item)?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="chars" type="text" default="0" label="Character Count" description="Character limitation for retrieved article. '0' means no limit" />
+		<param name="words" type="text" default="0" label="Word Count" description="Word limitation for retrieved article. '0' means no limit" />
+		<param name="more" type="radio" default="1" label="Read More" description="Show read more link below retrieved article or not?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="openin" type="list" default="0" label="Read More Link Open" description="How to open the link to read full article?">
+			<option value="0">Parent Window With Browser Navigation</option>
+			<option value="1">New Window With Browser Navigation</option>
+			<option value="2">New Window Without Browser Navigation</option>
+		</param>
+	</params>
+</install>

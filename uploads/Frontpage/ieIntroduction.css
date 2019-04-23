@@ -1,0 +1,27 @@
+
+/* hack for Internet Explorer */
+#gallery li.pad {
+  height:0;
+  display:block;
+  margin-top:-2px;
+  width:450px;
+  font-size:0;
+  }
+* html #gallery a:hover span.popup{
+  width:400px; w\idth:388px;
+   position: absolute;
+   z-index: 100;
+ }
+* html #gallery a:hover img{
+  background:#eee;
+      position: absolute;
+      left: 40px;
+      top: 48px;
+     width:330px;
+    height:240px;
+      border:0;
+ left:62px;
+       top:60px;
+      left:64px;
+       z-index:20;
+}

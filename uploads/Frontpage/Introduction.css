@@ -1,0 +1,184 @@
+body{
+	font-family:"Lucida Grande", Arial;
+	font-size:9pt;
+	font-weight:bold;
+	text-align:center;
+	height: 500px;
+	margin:auto;
+}
+div#intro a{
+  display:block;
+  width: 470px;
+ margin-left:0px;
+ margin-top: 0;
+position:relative;
+text-decoration: none;
+z-index:50;
+}
+
+
+ul#gallery {
+  padding: 5px; 
+  margin: 0 0 0 0; 
+  width:448px; 
+  height:335px; 
+  position:relative; 
+   border:2px solid yellow;
+
+background:yellow center url("../media/images/DanceFeathersSmall.jpg") no-repeat
+  }
+#gallery li {
+  list-style-type:none; 
+  margin:0 0 0 0;
+  width:64px; 
+  height:48px; 
+  float:left; 
+  z-index:20;
+}
+#gallery li.lft {
+  float:left; 
+  clear:left;
+  margin:0 0 0 0;
+}
+#gallery li.rgt {
+  float:right; 
+  clear:right;
+  }
+
+#gallery a{
+  position:relative; 
+  width:64px; 
+  height:48px; 
+  display:block; 
+  float:left; 
+  z-index: 50; 
+  cursor:default;
+  text-decoration:none;
+  }
+#gallery a img {
+  position:relative; 
+  width:62px; 
+  height:46px;
+  margin:0 0 0 0;
+  border:1px solid yellow; 
+  z-index: 50;
+  }
+
+#gallery a span.text{
+  display:none;
+}
+* html #gallery a#title {
+   height:450px;
+     he\ight:450px;
+       }
+
+
+#gallery a:hover{
+  width:330px; 
+  height:240px; 
+  padding:100px 105px; 
+  position:absolute; 
+  left:0px; 
+  top:0px; 
+  z-index:20;
+  }
+#gallery a:hover img{
+  background:#eee;
+  display:block;
+ position: absolute;
+  left: -140px;
+  top: -148px;
+  width:330px;
+  height:240px;
+  border:0;
+  left:62px;
+  top:60px;
+  left:64px;
+  z-index:20;
+}
+#gallery a#title:hover {
+ background-position: 0 0;
+  z-index:60;
+}
+#gallery a:hover span.text{
+  display: block;
+  background: white;
+  position: absolute;
+  left: 64px;
+  top: 55px;
+  width:320px;
+  height:20px;
+  color: black;
+  z-index:60;
+  clear: both; 
+}
+
+/* hack for Internet Explorer */
+#gallery li.pad {
+  height:0; 
+  display:block; 
+  margin-top:-2px; 
+  width:448px; 
+  font-size:0;
+  }
+* html #gallery a:hover span.popupword{
+ width:380px; 
+ position: absolute;
+ z-index: 100;
+}
+* html #gallery a:hover img{
+  background:#eee;
+   position: absolute;
+  left: 40px;
+  top: 48px;
+  width:330px;
+  height:240px;
+  border:0;
+  left:62px;
+  top:60px;
+  left:64px;
+  z-index:20;
+}
+
+/* hack for Opera 7+ */
+@media all and (min-width:0){
+#gallery a:hover {
+  background:yellow; 
+  width:320px; 
+  height:240px; 
+  padding:48px 64px; 
+  position:absolute; 
+  left:0; 
+  top:0; 
+  z-index:1;
+  }
+#gallery a:hover span.popupword{
+ position: fixed;
+  width:388px;
+  top: 0px;
+  left: 30px;
+  display:block;
+  background:transparent -100px -100px no-repeat;
+
+  font-family:arial;
+  font-size:12px;
+  background-color: #B0C4DE;
+  color:#000;
+  border:1px solid #000;
+  padding:5px;
+  display: block;
+z-index: 100;
+
+}
+#gallery a:hover span.popupword:first-line{
+ font-weight:bold;
+  font-style:italic;
+
+}
+a div.intro{
+  margin:0 0 0 0;
+  width: 500px;
+}
+
+}
+
