@@ -411,7 +411,7 @@ def email_user(sender,message,subject="Web Contact"):
 
 def email_user(sender,message,subject="Web Contact"):
         from gluon.tools import Mail
-        fromaddr=sender
+	fromaddr=sender
         toaddrs=[EMAIL_SENDER]
         msg="From: %s\r\nTo: %s\r\nSubject: %s\r\n\r\n%s"%(fromaddr,", ".join(toaddrs),subject,message)
         mail=Mail()
