@@ -1,9 +1,10 @@
-from HTMLParser import HTMLParser
-from htmlentitydefs import name2codepoint
+from html.parser import HTMLParser
+import urllib.request
+from html.entities import name2codepoint
 
-class langHTMLParser(HTMLParser): 
+class langHTMLParser(HTMLParser):
     words=""
-    import StringIO
+    from io import StringIO
     def __init__(self):
         HTMLParser.__init__(self)
  	#words=StringIO.StringIO()
@@ -53,33 +54,33 @@ class langHTMLParser(HTMLParser):
         words=data.split()
         wordsfinal=""
         for word in words:
-          	condition = dblanguage.Dharug.Search_English.startswith(word+',')
+            condition = dblanguage.Dharug.Search_English.startswith(word+',')
 
-          	wordlist=dblanguage(condition).select(dblanguage.Dharug.ALL, orderby=dblanguage.Dharug.Search_English)
-          	if not wordlist:
-           		condition = dblanguage.Dharug.Search_English.startswith(word+' ')
-           		wordlist=dblanguage(condition).select(dblanguage.Dharug.ALL, orderby=dblanguage.Dharug.Search_English)
-           		if not wordlist:
-                		condition = dblanguage.Dharug.Language_Word==word
-                		wordlist=dblanguage(condition).select(dblanguage.Dharug.ALL, orderby=dblanguage.Dharug.Search_English)
+            wordlist=dblanguage(condition).select(dblanguage.Dharug.ALL, orderby=dblanguage.Dharug.Search_English)
+            if not wordlist:
+                condition = dblanguage.Dharug.Search_English.startswith(word+' ')
+                wordlist=dblanguage(condition).select(dblanguage.Dharug.ALL, orderby=dblanguage.Dharug.Search_English)
+                if not wordlist:
+                    condition = dblanguage.Dharug.Language_Word==word
+                    wordlist=dblanguage(condition).select(dblanguage.Dharug.ALL, orderby=dblanguage.Dharug.Search_English)
         if wordlist:
 
-            		sample=wordlist[0]
-            		if (sample.SoundFile==None or sample.SoundFile==""):
+            sample=wordlist[0]
+            if (sample.SoundFile==None or sample.SoundFile==""):
                         sample.SoundFile=sample.Language_Word+'.mp3'
-                    sample.info='<b><i>'+sample.Language_Word+'</i></b><br>'+sample.Search_English
-            		if(os.path.exists('applications/'+language+'/uploads/media/sounds/'+str(sample.SoundFile))):
-                		sample.Sound = URL(r=request, c='default',f='sounds', args=str(sample.SoundFile))
-                		sample.info="DHTMLSound('"+str(sample.Sound)+"','"+str(sample.info)+"');"
-                		substitute1='<a href="/Dharug/language/view_word/'+str(sample.id)+'" target="_blank" onMouseOver="'+str(sample.info)+'" > '+word+' </a> '
-            		else:
+            sample.info='<b><i>'+sample.Language_Word+'</i></b><br>'+sample.Search_English
+            if(os.path.exists('applications/'+language+'/uploads/media/sounds/'+str(sample.SoundFile))):
+                sample.Sound = URL(r=request, c='default',f='sounds', args=str(sample.SoundFile))
+                sample.info="DHTMLSound('"+str(sample.Sound)+"','"+str(sample.info)+"');"
+                substitute1='<a href="/Dharug/language/view_word/'+str(sample.id)+'" target="_blank" onMouseOver="'+str(sample.info)+'" > '+word+' </a> '
+            else:
                         sample.info="DHTMLText('"+str(sample.info)+"');"
                         substitute1='<a href="/Dharug/language/view_word/'+str(sample.id)+'" target="_blank" onMouseOver="'+str(sample.info)+'" > '+word+' </a> '
 
-            		word=substitute1
-          	else:
+            word=substitute1
+        else:
                 word=word #no change
         wordsfinal+=word+' '
-	return wordsfinal
+        return wordsfinal
 
 parser = langHTMLParser()

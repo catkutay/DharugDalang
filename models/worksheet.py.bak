@@ -84,19 +84,19 @@ def wsread_page(page):
                           while i<k-1 and  SoundLinks[i+1]["text"]==SoundLinks[i]["text"]:
                               Info=""
                               if item["type"]=="file":
-                                    Sound = urllib.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
+                             		Sound = urllib.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
                               else:
-                                    Sound = urllib.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
+                            		Sound = urllib.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
                 if Info=="":
-                    Info="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
-                else:
-                    Info+="DHTMLLoadSound('"+str(Sound)+"','"+str(item["text"])+"');"
+					Info="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
+				else:
+					Info+="DHTMLLoadSound('"+str(Sound)+"','"+str(item["text"])+"');"
 
-                i+=1
-                newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
+				i+=1
+                          newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
 
-                parag+=newparag
-                i+=1
+		        parag+=newparag
+		    i+=1
 
                 paragraphs+=parag
 

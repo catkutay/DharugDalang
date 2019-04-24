@@ -1,9 +1,10 @@
-from HTMLParser import HTMLParser
-from htmlentitydefs import name2codepoint
+from html.parser import HTMLParser
+import urllib.request
+from html.entities import name2codepoint
 
-class langHTMLParser(HTMLParser): 
+class langHTMLParser(HTMLParser):
     words=""
-    import StringIO
+    from io import StringIO
     def __init__(self):
         HTMLParser.__init__(self)
  	#words=StringIO.StringIO()

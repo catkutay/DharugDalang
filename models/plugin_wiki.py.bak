@@ -259,7 +259,7 @@ class PluginWikiWidgets(object):
         if not record_id: record_id=request.args(-1)
         #if not record_id.isdigit: return XML('no data')
         if (table!="ALC" and table !="CLW"):
-            return crud.read(db[table],record_id)
+        	return crud.read(db[table],record_id)
         else:
             return crud.read(dblanguage[table],record_id)
     @staticmethod
@@ -655,7 +655,7 @@ class PluginWiki(object):
         if code_page and request.controller=='plugin_wiki' and not request.function in ('page_edit', 'page_history'):
             try:
                 exec(re.sub('\r\n|\n\r|\r','\n',code_page.body.strip()),globals())
-            except:
+            except Exception,e:
                 import traceback
                 if plugin_wiki_editor:
                     response.flash = DIV(H4('Execution error in page _proc'),              
@@ -718,7 +718,7 @@ class PluginWiki(object):
 
     def pdf(self,text):
         if not plugin_wiki_mode=='markmin':
-            raise Exception( "Not supported")
+            raise RuntimeError, "Not supported"
 
         response.headers['content-type'] = 'application/pdf'
         return "Not implemented"
@@ -730,7 +730,7 @@ class PluginWiki(object):
         elif plugin_wiki_mode=='markmin':
             return self.render_markmin(text,page_url)
         else:
-            raise Exception("Not supported")
+            raise RuntimeError, "Not supported"
 
     def parse_value(self,code):
         code = code.replace('[page]',request.args(0))
@@ -756,7 +756,7 @@ class PluginWiki(object):
                 return html.xml()
             else:
                 ''
-        except:
+        except Exception,e:
             if plugin_wiki_editor:
                 import traceback
                 return '<div class="error"><pre>%s</pre></div>' % traceback.format_exc()
@@ -767,7 +767,7 @@ class PluginWiki(object):
         import gluon.template
         try:
             return gluon.template.render(code,context=globals())
-        except:
+        except Exception,e:
             if plugin_wiki_editor:
                 import traceback
                 return '<div class="error"><pre>%s</pre></div>' % traceback.format_exc()

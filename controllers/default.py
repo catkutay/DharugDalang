@@ -14,39 +14,39 @@ def upload():
     fullpath= os.path.join(request.folder,'uploads/media/',request.args(0))# directory
     if request.args(1):
         try:	
-		page_number=int(request.args(1))
-	except: 
-		page_number=1
+            page_number=int(request.args(1))
+        except:
+            page_number=1
     else: page_number=1
     list=[]
     directories=[]
     for path, subdirs, files in os.walk(fullpath):
-    	for subdir in subdirs:
-	    directories.append(subdir)
+        for subdir in subdirs:
+            directories.append(subdir)
     for path, subdirs, files in os.walk(fullpath):
-	for name in files:
-		relpath=os.path.relpath(path,fullpath)
-		if os.path.isfile(os.path.join(path,name)):	
-			item={'path': os.path.join(relpath,name), 'name':name, 'category':relpath}
-        		list.append( item)
+        for name in files:
+            relpath=os.path.relpath(path,fullpath)
+            if os.path.isfile(os.path.join(path,name)):
+                item={'path': os.path.join(relpath,name), 'name':name, 'category':relpath}
+                list.append( item)
 
     #list=os.listdir(fullpath)
     sorted_list = sorted(list, key=lambda x: os.path.getmtime(os.path.join(fullpath,x['path'])))
     options=db(db.plugin_wiki_tag.parent=="index").select(orderby=db.plugin_wiki_tag.id)
     optionnames=[]
     for option in options:
-	optionnames.append(option.name.replace(' ','_'))
-    options=optionnames
+        optionnames.append(option.name.replace(' ','_'))
+        options=optionnames
     if request.vars:
-	if request.vars.file!=None:
-		tags=""
-    		tags=request.vars.type
+        if request.vars.file!=None:
+            tags=""
+            tags=request.vars.type
 
-        	filename= request.vars.file.filename
-		filepath= os.path.join(fullpath,tags,filename)
-        	dest_file=open(filepath,'wb')
-		shutil.copyfileobj(request.vars.file.file,dest_file)
-        	dest_file.close()
+            filename= request.vars.file.filename
+            filepath= os.path.join(fullpath,tags,filename)
+            dest_file=open(filepath,'wb')
+            shutil.copyfileobj(request.vars.file.file,dest_file)
+            dest_file.close()
     return dict(list=sorted_list,directories=directories, options=options,page_number=page_number, type=request.args(0))
 
 def images():
@@ -93,9 +93,9 @@ def manage():
     tableName=request.args[0]
     if (tableName !="ALC" and tableName !="CLW"):
 
-	    table=db[tableName]
+        table=db[tableName]
     else:
-	table=dblanguage[tableName]
+        table=dblanguage[tableName]
     form = crud.update(table,request.args(1))
     table.id.represent = lambda id: \
        A('edit:',id,_href=URL(args=(request.args(0),id)))
@@ -134,34 +134,34 @@ def _pages():
 
 
 def _pages_by_tag():
-      if not(request.args):
-	 redirect(URL(r=request, c='plugin_wiki', f='pages'))
-
-      try:
-    	tag_id= str(request.args[0])
-
-      except (KeyError, ValueError, TypeError):
+    if not(request.args):
         redirect(URL(r=request, c='plugin_wiki', f='pages'))
-      else:
+
+        try:
+            tag_id= str(request.args[0])
+
+        except (KeyError, ValueError, TypeError):
+            redirect(URL(r=request, c='plugin_wiki', f='pages'))
+    else:
         if (tag_id=="0"):
             redirect(URL(r=request, c='plugin_wiki', f='pages'))
-	tag_name=db.plugin_wiki_tag(id=tag_id).name
+    tag_name=db.plugin_wiki_tag(id=tag_id).name
 	
-	query = ((db.plugin_wiki_page.tags.like('%%|%s|%%' % tag_id)) |
+    query = ((db.plugin_wiki_page.tags.like('%%|%s|%%' % tag_id)) |
                 (db.plugin_wiki_page.title.like('%s' % tag_name) )) 
-        pages = db(query).select(orderby =~db.plugin_wiki_page.created_on)
-        if not pages:
-	        redirect(URL(r=request, c='plugin_wiki', f='pages'))
+    pages = db(query).select(orderby =~db.plugin_wiki_page.created_on)
+    if not pages:
+        redirect(URL(r=request, c='plugin_wiki', f='pages'))
 
-        return dict(pages=pages, selected_tag=tag_name)
+    return dict(pages=pages, selected_tag=tag_name)
 
 def _create_page():
- 	search_page = 'New_Page'
-	redirect(URL(r=request, c='default', f='_create', args=search_page))
+    search_page = 'New_Page'
+    redirect(URL(r=request, c='default', f='_create', args=search_page))
 
 
 def _page():
-    redirect(URL(r=request, c='plugin_wiki', f='page', args=request.args)) 
+    redirect(URL(r=request, c='plugin_wiki', f='page', args=request.args))
     if not request.args:
         redirect(URL(r=request,c='default' , f='HOME'))
     search_page = request.args[0] #web2py changes ' ' with '_' for us!
@@ -315,34 +315,35 @@ def user():
     """
 
 def user():
-	from gluon.tools import Mail
-	form=auth()
-	if request.args(0)=='register':
-               if form.accepts(request.vars, session):
-                   try: 
+    from gluon.tools import Mail
+    form=auth()
+    if request.args(0)=='register':
+        if form.accepts(request.vars, session):
+                try:
                         mail=Mail()
                         mail.settings.server=EMAIL_SERVER+":25"
                         mail.settings.sender=EMAIL_SENDER
-                        mail.send(to=[EMAIL_SENDER],subject="Registration for approval",             message='Registration requires approval. New user email is %(email)s. Click on link to view pending requests: http://dharug.dalang.com.au/appadmin/update/db/auth_user/registration_key/pending'% {'email' : form.vars.email})
+                        mail.send(to=[EMAIL_SENDER],subject="Registration for approval",
+                            message='Registration requires approval. New user email is %(email)s. Click on link to view pending requests: http://dharug.dalang.com.au/appadmin/update/db/auth_user/registration_key/pending'% {'email' : form.vars.email})
                         session.flash=T("Your registration is being held for approval")
 
-                   except:
-		    	session.flash=T("Mail being held for approval")
+                except:
+        session.flash=T("Mail being held for approval")
 
-                   	redirect(URL(r=request, c='plugin_wiki', f='index'))
- 	    	   db.auth_user[form.vars.id] = dict(registration_key='pending')
-	       else:
-			session.flash=T("Password and confirm Password  must match")
-			form=auth.register()
+        redirect(URL(r=request, c='plugin_wiki', f='index'))
+        db.auth_user[form.vars.id] = dict(registration_key='pending')
+        else:
+            session.flash=T("Password and confirm Password  must match")
+            form=auth.register()
         elif request.args(0)=='login':
-		if request.env.http_referrer:
+            if request.env.http_referrer:
 
-			auth.settings.login_next =redirect(request.env.http_referrer)
-		return dict(form=auth.login())
+                auth.settings.login_next =redirect(request.env.http_referrer)
+        return dict(form=auth.login())
 
-	else:
-		if request.env.http_referrer:
-    			auth.settings.login_next =redirect(request.env.http_referrer)
+    else:
+        if request.env.http_referrer:
+            auth.settings.login_next =redirect(request.env.http_referrer)
         return dict(form=form)
 
 def _user():
@@ -386,13 +387,13 @@ def download():
     from gluon.contenttype import contenttype
     filename=request.args[0]
     try:
-	type=request.args[1]
+        type=request.args[1]
     except:
-	type=None
+        type=None
 
     response.headers['Content-Type']=contenttype(filename)
     if type:
-	return open(os.path.join(request.folder,'uploads/media/','%s/%s' % (type, filename )),'rb').read()
+        return open(os.path.join(request.folder,'uploads/media/','%s/%s' % (type, filename )),'rb').read()
     else:
         return open(os.path.join(request.folder,'uploads/media/','%s' % filename),'rb').read()
 
@@ -410,13 +411,13 @@ def filedown():
     i=1
     filename = request.args(0)
     while(filename!=None):
-	subdirectory = os.path.join(subdirectory, filename)
-	filename = request.args(i)
-	i+=1
+        subdirectory = os.path.join(subdirectory, filename)
+        filename = request.args(i)
+        i+=1
     fullpath=subdirectory
-   except IOERROR:
-	pass
-   response.stream(os.path.join(request.folder,fullpath))
+    except IOERROR:
+        pass
+    response.stream(os.path.join(request.folder,fullpath))
 
 import re
 def references():
@@ -429,9 +430,9 @@ def references():
     i=1
     fullpathfile=fullpath +str(i)+'.jpg'
     while (os.path.exists(os.path.join(subdirectory,fullpathfile))):
-	files.append(fullpathfile)
-	i+=1
-	fullpathfile=fullpath+str(i)+'.jpg'
+        files.append(fullpathfile)
+        i+=1
+        fullpathfile=fullpath+str(i)+'.jpg'
     link =URL(r=request, c='default',f='reference', args=files[int(index)-1])
     fullpath = re.sub('(.)([A-Z][a-z]+)', r'\1 \2', fullpath)
     fullpath=re.sub('([a-z0-9])([A-Z])', r'\1 \2', fullpath)
