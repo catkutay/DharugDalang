@@ -231,7 +231,7 @@ def retrieve_file(filename):
 
 def resource():
     resource_title=request.args(0)
-    logging.warn (resource_title)
+
     try:
         resource_title=int(resource_title)
         resource_title=db.resources(db.resources.id==resource_title)
@@ -240,8 +240,13 @@ def resource():
         pass
     if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
     slug=resource_title.strip().replace(' ','_').lower()
-    print (slug)
-    resource=db(db.resources.slug==slug).select().first()
+    logging.warn (slug)
+    logging.warn (slug=="jakelin_troy_sydney_languages_book")
+    resource=db(db.resources.slug==slug).select()
+
+    logging.warn(resource)
+    resource=resource.first()
+    logging.warn(resource)
     if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
     resource_id=db(db.resources.slug==slug).select()
     transcriptions=db(db.elan.resource_id==resource_id[0].id)
