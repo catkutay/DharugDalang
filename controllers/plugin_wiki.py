@@ -14,16 +14,16 @@ def search():
     words=None
     pages=None
     if request.vars.query:
-	searchterm=request.vars.query
-	typequery=request.vars.type
+        searchterm=request.vars.query
+        typequery=request.vars.type
         query = (db.plugin_wiki_page.body.like('%%%s%%' % searchterm) |db.plugin_wiki_page.title.like('%%%s%%' % searchterm) )
         pages = db(query).select(db.plugin_wiki_page.title,db.plugin_wiki_page.summary, db.plugin_wiki_page.slug,db.plugin_wiki_page.tags,
                                  orderby=db.plugin_wiki_page.title)
-	if typequery=="English":
-		query= dblanguage.Dharug.English.like('%%%s%%' % searchterm) 
-	else:
-		query= dblanguage.Dharug.Language_Word.like('%%%s%%' % searchterm) 
-	words=dblanguage(query).select()
+        if typequery=="English":
+            query= dblanguage.Dharug.English.like('%%%s%%' % searchterm)
+        else:
+            query= dblanguage.Dharug.Language_Word.like('%%%s%%' % searchterm)
+        words=dblanguage(query).select()
     return dict(words=words, pages=pages, query=request.vars.query)
 
 
@@ -34,23 +34,23 @@ def pages():
     taglist=db(t.id>0).select(orderby=t.id)
     words=None
     if plugin_wiki_editor:
-    	    pages = db(w.id>0)(w.is_active==True).select(orderby=w.title)
+        pages = db(w.id>0)(w.is_active==True).select(orderby=w.title)
     else:
-        	pages = db(w.is_active==True)(w.is_public==True).select(orderby=w.title)
+        pages = db(w.is_active==True)(w.is_public==True).select(orderby=w.title)
      
     if plugin_wiki_editor:
-        	form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires),
+        form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires),
                              Field('from_template',requires=IS_EMPTY_OR(IS_IN_DB(db,db.plugin_wiki_page.title))))
-		if form.accepts(request.vars):
-			title=request.vars.title
-	        	page =db(w.title==title).select().first()
-			if not page:
-        			page = w.insert(slug=title.replace(' ','_'),
+        if form.accepts(request.vars):
+            title=request.vars.title
+            page =db(w.title==title).select().first()
+            if not page:
+                page = w.insert(slug=title.replace(' ','_'),
                 	        title=title,
                         	body=request.vars.template and w(slug=request.vars.template).body or '')
-            		redirect(URL(r=request,f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
+                redirect(URL(r=request,f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
     else:
-		form=''
+        form=''
     return dict(slug=slug, taglist=taglist, pages=pages, form=form,query=request.vars.query)
 
 def index():
@@ -112,7 +112,7 @@ def map():
                 row.plugin_gmap_ALC=plugin_gmap.ALC(row)
                 row.plugin_gmap_alt=plugin_gmap.alt(row)
                 row.plugin_gmap_popup=plugin_gmap.represent(row)
-		row.login=auth.is_logged_in()
+                row.login=auth.is_logged_in()
         except:
                 pass
     for alc in alcs:
@@ -120,8 +120,8 @@ def map():
         alc.plugin_gmaps_color = plugin_gmaps.color(alc)
         alc.plugin_gmaps_image= plugin_gmaps.image(alc)
         alc.plugin_gmaps_address=plugin_gmaps.address(alc)
-	alc.login=auth.is_logged_in()
-    #return LOAD('plugin_gmap','map', ajax=True)
+        alc.login=auth.is_logged_in()
+        #return LOAD('plugin_gmap','map', ajax=True)
 
     return dict(width=width,height=height, alcs=alcs,  rows=rows,page=page, form=form)
 
@@ -133,87 +133,87 @@ def contact():
     top_message = "This form is to contact the Dharug developer. We will try to answer your request quickly"
 
     if form.process().accepted:
-	reply_to="%s" % form.vars.your_email
+        reply_to="%s" % form.vars.your_email
         if mail.send(to ="cat.kutay@gmail.com",
         subject="From %s website" % language,
-	message=reply_to +'\r\n'+form.vars.question):
-	  top_message="Message Sent"
-          pass#   redirect(URL('contact'))
+	    message=reply_to +'\r\n'+form.vars.question):
+            top_message="Message Sent"
+            pass#   redirect(URL('contact'))
     elif form.errors:
         form.errors.your_email='Unable to send email'
-	top_message='Unable to send email'
+        top_message='Unable to send email'
     return dict(form=form, top_message=top_message)
 
 
 @auth.requires_login()
 def edit_resource():
-	form=None
-        resource_title=request.args(0)
-        if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
-	slug=resource_title.strip().replace(' ','_').lower()
-        transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
+    form=None
+    resource_title=request.args(0)
+    if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
+    slug=resource_title.strip().replace(' ','_').lower()
+    transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
 
-	w = db.resources
-        resource = w(slug=slug)
-        if not  resource:
-           	redirect(URL(r=request, c='plugin_wiki', f='resources'))
-	else:
-                form = crud.update(w, resource.id, deletable=False, onaccept=crud.archive,
+    w = db.resources
+    resource = w(slug=slug)
+    if not  resource:
+        redirect(URL(r=request, c='plugin_wiki', f='resources'))
+    else:
+        form = crud.update(w, resource.id, deletable=False, onaccept=crud.archive,
                 next=URL(r=request,c='plugin_wiki', f='resource',args=resource.title))
 
-	resource_name=os.path.join('file',resource.name)
-	return dict(resources=None,resource=resource,resource_name=resource_name, transcript=transcript,form=form)
+    resource_name=os.path.join('file',resource.name)
+    return dict(resources=None,resource=resource,resource_name=resource_name, transcript=transcript,form=form)
 
 
 @auth.requires_login()
 def edit_resource_transcript():
         resource_title=request.args(0)
-	form=None
+        form=None
         if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
         slug=resource_title.strip().replace(' ','_').lower()
         resource=db(db.resources.slug==slug).select().first()
-	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
+        if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
         transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
-	if plugin_wiki_editor:
-    	   if not transcript:
-		w = db.plugin_wiki_transcript
-        	transcript= w.insert(slug=slug,
+        if plugin_wiki_editor:
+            if not transcript:
+                w = db.plugin_wiki_transcript
+                transcript= w.insert(slug=slug,
                         title=resource_title,
                         body=request.vars.template and w(slug=request.vars.template).body or '')
-           form = crud.update(db.plugin_wiki_transcript, transcript, deletable=False, onaccept=crud.archive,
+            form = crud.update(db.plugin_wiki_transcript, transcript, deletable=False, onaccept=crud.archive,
                 next=URL(r=request,c='plugin_wiki', f='resource',args=resource_title))
 
         resource_name=os.path.join('file',resource.name)
-	return dict(form=form, resources=None,resource=resource, resource_name=resource_name,transcript=transcript)
+        return dict(form=form, resources=None,resource=resource, resource_name=resource_name,transcript=transcript)
 
 def resources():
-	resources=db.resources
-	resources = db(resources.id>0 and resources.Active=="T").select(orderby=resources.title)            
-        if(resources==None):redirect(URL(r=request, c='plugin_wiki', f='pages'))
-        return dict(resource=None,resources=resources)
+    resources=db.resources
+    resources = db(resources.id>0 and resources.Active=="T").select(orderby=resources.title)
+    if(resources==None):redirect(URL(r=request, c='plugin_wiki', f='pages'))
+    return dict(resource=None,resources=resources)
 
 
 def upload_elan():
-        import  Shoebox_parse_dict
-	file=request.vars.elan.filename
-	filename = os.path.join("applications/Dharug/uploads",file)
-	try:
-		store_file(request.vars.elan.file,filename)
-	except:
-		pass
-	text=Shoebox_parse_dict.shoebox_to_dictlist(filename)
-	#clear old ones form database
-	query=db(db.elan.resource_id==request.vars.id)
-	if query:query.delete()
-	for item in text:
-		item['resource_id']=request.vars.id
-		entry=""
-		#for key, value in item:
-		#	entry+=value+"' "
-		#	query="insert into elan values (%s)' %(entry)"
+    import  Shoebox_parse_dict
+    file=request.vars.elan.filename
+    filename = os.path.join("applications/Dharug/uploads",file)
+    try:
+        store_file(request.vars.elan.file,filename)
+    except:
+        pass
+    text=Shoebox_parse_dict.shoebox_to_dictlist(filename)
+    #clear old ones form database
+    query=db(db.elan.resource_id==request.vars.id)
+    if query:query.delete()
+    for item in text:
+        item['resource_id']=request.vars.id
+        entry=""
+        #for key, value in item:
+        #	entry+=value+"' "
+        #	query="insert into elan values (%s)' %(entry)"
 		#logging.warn(query)
-		db['elan'].insert(**item)
-	redirect (URL(f='resource',args=request.vars.id))
+        db['elan'].insert(**item)
+    redirect (URL(f='resource',args=request.vars.id))
 
 def store_file(file, filename=None):
     import shutil
@@ -230,92 +230,94 @@ def retrieve_file(filename):
 
 
 def resource():
-	resource_title=request.args(0)
-	try:
-		resource_title=int(resource_title)	
-		resource_title=db.resources(db.resources.id==resource_title)
-		resource_title=resource_title.title
-	except:
-		pass
-	if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
-	slug=resource_title.strip().replace(' ','_').lower()
-        resource=db(db.resources.slug==slug).select().first()
-	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))   
-	resource_id=db(db.resources.slug==slug).select()
-	transcriptions=db(db.elan.resource_id==resource_id[0].id)
+    resource_title=request.args(0)
+    logging.warn (resource_title)
+    try:
+        resource_title=int(resource_title)
+        resource_title=db.resources(db.resources.id==resource_title)
+        resource_title=resource_title.title
+    except:
+        pass
+    if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
+    slug=resource_title.strip().replace(' ','_').lower()
+    print (slug)
+    resource=db(db.resources.slug==slug).select().first()
+    if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
+    resource_id=db(db.resources.slug==slug).select()
+    transcriptions=db(db.elan.resource_id==resource_id[0].id)
 	
-        if transcriptions:
-		transcription=transcriptions.select()
-                rows=[]
+    if transcriptions:
+        transcription=transcriptions.select()
+        rows=[]
                 #check for repeats
-                for trans in transcription:
+        for trans in transcription:
                     for row in rows:
                         if trans.speech.strip()==row.speech.strip():
                                 trans=None
                                 break
                     if trans:rows.append(trans)
-                transcription=rows
-	page=db(db.plugin_wiki_transcript.slug==slug)
-	if (page): page=page.select().first()     
-	resource_name=os.path.join("file",resource.name)
-	return dict(resource=resource, resource_name=resource_name, name=resource.name, page=page, transcription=transcription)
+        transcription=rows
+    page=db(db.plugin_wiki_transcript.slug==slug)
+    if (page): page=page.select().first()
+    resource_name=os.path.join("file",resource.name)
+    return dict(resource=resource, resource_name=resource_name, name=resource.name, page=page, transcription=transcription)
 
 
 
 def tags_by_tag():
-	import re
-	if not(request.args):
-    	     redirect(URL(r=request, c='plugin_wiki', f='pages'))
-	pages=None
-	page=None
-	page_body=None
-	title="No results"
-	try:
-			tag_id= str(request.args[0])
-	except (KeyError, ValueError, TypeError):
-        		redirect(URL(r=request, c='plugin_wiki', f='pages'))
+    import re
+    if not(request.args):
+        redirect(URL(r=request, c='plugin_wiki', f='pages'))
+    pages=None
+    page=None
+    page_body=None
+    title="No results"
+    try:
+        tag_id= str(request.args[0])
+    except (KeyError, ValueError, TypeError):
+        redirect(URL(r=request, c='plugin_wiki', f='pages'))
       	
-	tag=db.plugin_wiki_tag(id=tag_id)
-	if (tag!=None):
-			tag.is_active=True;
-		 	tags=db(db.plugin_wiki_tag.parent==tag.name).select()
-	try:
-		page_id= str(request.args[1])
-	except(KeyError, IndexError,ValueError, TypeError):
-		page_id=str(request.args[0])
-	if (page_id.isdigit()):
-		tag_name=db.plugin_wiki_tag(id=tag_id).name
+    tag=db.plugin_wiki_tag(id=tag_id)
+    if (tag!=None):
+        tag.is_active=True;
+        tags=db(db.plugin_wiki_tag.parent==tag.name).select()
+    try:
+        page_id= str(request.args[1])
+    except(KeyError, IndexError,ValueError, TypeError):
+        page_id=str(request.args[0])
+    if (page_id.isdigit()):
+        tag_name=db.plugin_wiki_tag(id=tag_id).name
 
-        try:
+    try:
                 tag=db.plugin_wiki_tag(id=tag_id)
-        except (KeyError, ValueError, TypeError):
+    except (KeyError, ValueError, TypeError):
                 tag=db.plugin_wiki_tag(name=tag_id)
                 tag_id=tag.id
-        if (tag!=None):
+    if (tag!=None):
                 tag.is_active=True;
                 tags=db(db.plugin_wiki_tag.parent==tag.name).select()
-        tag_name=tag.name
-        try:
+    tag_name=tag.name
+    try:
                 page_id= str(request.args[1])
-        except(KeyError, IndexError,ValueError, TypeError):
+    except(KeyError, IndexError,ValueError, TypeError):
                 page_id=str(request.args[0])
-        #if(page_id.isdigit()):
-        tag_obj=db.plugin_wiki_tag(id=tag_id)
-	if tag_obj: tag_name=tag_obj.name
-	else: tag_name=None
-        tag_parent=tag_obj.parent
-        tag=db.plugin_wiki_tag(name=tag_parent)
-        if (tag): tag.is_active=True
+    #if(page_id.isdigit()):
+    tag_obj=db.plugin_wiki_tag(id=tag_id)
+    if tag_obj: tag_name=tag_obj.name
+    else: tag_name=None
+    tag_parent=tag_obj.parent
+    tag=db.plugin_wiki_tag(name=tag_parent)
+    if (tag): tag.is_active=True
         
 
-	query = ((db.plugin_wiki_page.tags.like('%%|%s|%%' % tag_id)))
+    query = ((db.plugin_wiki_page.tags.like('%%|%s|%%' % tag_id)))
 #        pages = db(query).select(orderby=~db.plugin_wiki_page.created_on)
-        if (tags):
+    if (tags):
                         page = db(query).select(orderby=~db.plugin_wiki_page.created_on).first()
                         if (page and page.worksheet):
                                 page.body=wsread_page(page)
                                 title="Latest article:"
-        else:
+    else:
                         pages = db(query).select(orderby=~db.plugin_wiki_page.created_on)
                         if(len(pages)>0):
                                 title="Pages available are:"
@@ -334,78 +336,78 @@ def tags_by_tag():
 #               if page:
 #                       page=page.select()
 #                       if (page.worksheet):page.body=wsread_page(page)
-        if(page!=None):
+    if(page!=None):
                 page_body=page.body
                 #if tag_name!=None:
                 #       page_body=''
-        form=""
-        #read wordlist
-        query = (dblanguage.Dharug.Category==tag_name)
+    form=""
+    #read wordlist
+    query = (dblanguage.Dharug.Category==tag_name)
 
-        words=  dblanguage(query).select(orderby=dblanguage.Dharug.English)
-        for word in words:
+    words=  dblanguage(query).select(orderby=dblanguage.Dharug.English)
+    for word in words:
                 word=read_word(word)
-        if (words and page==None):
+    if (words and page==None):
                 title="Words in Category"
-        return dict(tag=tag, words=words,form=form,pages=pages,title=title,page=page,page_body=page_body)
+    return dict(tag=tag, words=words,form=form,pages=pages,title=title,page=page,page_body=page_body)
 
 
 
 def pages_by_tag():
-      if not(request.args):
+    if not(request.args):
          redirect(URL(r=request, c='plugin_wiki', f='pages'))
 
-      try:
+    try:
         tag_name= str(request.args[0])
 
-      except (KeyError, ValueError, TypeError):
+    except (KeyError, ValueError, TypeError):
         redirect(URL(r=request, c='plugin_wiki', f='pages'))
-      else:
-        if (tag_name==None):
+
+    if (tag_name==None):
             redirect(URL(r=request, c='plugin_wiki', f='pages'))
-        if(tag_name=="Contact"):
-	#contact form
-		redirect(URL(r=request, c='plugin_wiki', f='contact'))
-        if (tag_name=="WordList"):
-	#word list
-		redirect(URL(r=request, c='plugin_wiki', f='dictionary'))	
-	tag_obj=db.plugin_wiki_tag(name=tag_name)
+    if(tag_name=="Contact"):
+            #contact form
+            redirect(URL(r=request, c='plugin_wiki', f='contact'))
+    if (tag_name=="WordList"):
+            #word list
+            redirect(URL(r=request, c='plugin_wiki', f='dictionary'))
+    tag_obj=db.plugin_wiki_tag(name=tag_name)
 
-	if tag_obj: 
-		tag_id = tag_obj.id
+    if tag_obj:
+        tag_id = tag_obj.id
 		
-	else: 
-		try:
-			tag_obj=db.plugin_wiki_tag(id=tag_name)
-        		if tag_obj: 
-				tag_id = tag_obj.id
-				tag_name=tag_obj.name
-        		else: tag_id=None
-		except: tag_id=None 
-	#find parent tag to keep menu open
-	tag_parent=tag_obj.parent
-	tag=db.plugin_wiki_tag(name=tag_parent)
-	if (tag): tag.is_active=True
-        query = ((db.plugin_wiki_page.tags.like('%%|%s|%%' % tag_id))) 
-#        pages = db(query).select(orderby=~db.plugin_wiki_page.created_on)
-	pages = db(query).select()
-	if pages:
-    		sorted_pages = []
+    else:
+        try:
+            tag_obj=db.plugin_wiki_tag(id=tag_name)
+            if tag_obj:
+                tag_id = tag_obj.id
+                tag_name=tag_obj.name
+            else: tag_id=None
+        except: tag_id=None
+    #find parent tag to keep menu open
+    tag_parent=tag_obj.parent
+    tag=db.plugin_wiki_tag(name=tag_parent)
+    if (tag): tag.is_active=True
+    query = ((db.plugin_wiki_page.tags.like('%%|%s|%%' % tag_id)))
+    #         pages = db(query).select(orderby=~db.plugin_wiki_page.created_on)
+    pages = db(query).select()
+    if pages:
+        sorted_pages = []
 
 
 
-    		for row in pages.sort(lambda row: row.created_on,reverse=True):
-        		sorted_pages.append(row)
-		pages=sorted_pages
-		if (pages[0].worksheet):
-			pages[0].body=wsread_page(pages[0])
-        else:
-                redirect(URL(r=request, c='plugin_wiki', f='pages'))
+        for row in pages.sort(lambda row: row.created_on,reverse=True):
+            sorted_pages.append(row)
+        pages=sorted_pages
+        if (pages[0].worksheet):
+            pages[0].body=wsread_page(pages[0])
+    else:
+            redirect(URL(r=request, c='plugin_wiki', f='pages'))
 
-        return dict(tag=tag, pages=pages, selected_tag=tag_name)
+    return dict(tag=tag, pages=pages, selected_tag=tag_name)
 
 def user():
-	redirect(URL(r=request, c='default', f='user'))
+    redirect(URL(r=request, c='default', f='user'))
 
 def cache_in_ram():
     import time
@@ -422,28 +424,28 @@ def page():
     slug= request.args(0) 
     import re
     if slug=="Index" or slug==None:
-	redirect(URL(r=request, c='plugin_wiki', f='index.html'))
+        redirect(URL(r=request, c='plugin_wiki', f='index.html'))
     if slug=="Admin_Help" and not auth.user:
         redirect(URL(r=request, c='plugin_wiki', f='pages'))
     if (slug=="resources" or slug=="written_examples_of_the_language" or slug=="dictionary") and not auth.user:
-	redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
+        redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
 
 
     w = db.plugin_wiki_page
     page = w(slug=slug)
     #for template
     if (not page or not page.is_active):
-    	 if plugin_wiki_editor:
-		redirect(URL(r=request, c='plugin_wiki', f='edit_page', args=request.args))
-	 if (session):session.flash=T("Page not available")
+        if plugin_wiki_editor:
+            redirect(URL(r=request, c='plugin_wiki', f='edit_page', args=request.args))
+        if (session):session.flash=T("Page not available")
 
-	 redirect(URL(r=request, c='plugin_wiki', f='pages'))
+        redirect(URL(r=request, c='plugin_wiki', f='pages'))
     elif page and page.role and not auth.has_membership(page.role):    
         raise HTTP(404)
-	# parse pages. First History
+    # parse pages. First History
     if page.worksheet:
-	redirect (URL(r=request,c='learning',f='page'))
-	page.questions=[]
+        redirect (URL(r=request,c='learning',f='page'))
+        page.questions=[]
     page.attachments=[]
     a=db.plugin_wiki_attachment
     query = (a.tablename=="page")&(a.record_id==page.id)
@@ -506,18 +508,18 @@ def edit_page():
                         tags=tags,
                         body=request.vars.template and w(slug=request.vars.template).body or '')
     else:
-	tags = page.tags #in practice 'xyz' would be a variable
+        tags = page.tags #in practice 'xyz' would be a variable
     if page.title=="Index":
-	form = crud.update(w, page, deletable=True, onaccept=crud.archive,
+        form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
-    else:	
-	if page.worksheet:
-		images=dblanguage(dblanguage.images.id>0).select()
-		form = crud.update(w, page, deletable=True, onaccept=crud.archive,next=URL(r=request,c='learning', f='page',args=slug))
+    else:
+        if page.worksheet:
+            images=dblanguage(dblanguage.images.id>0).select()
+            form = crud.update(w, page, deletable=True, onaccept=crud.archive,next=URL(r=request,c='learning', f='page',args=slug))
 
-	else:
-		images=[]
-		form = crud.update(w, page, deletable=True, onaccept=crud.archive, next=URL(r=request,c='plugin_wiki', f='page',args=slug))
+        else:
+            images=[]
+            form = crud.update(w, page, deletable=True, onaccept=crud.archive, next=URL(r=request,c='plugin_wiki', f='page',args=slug))
 
     return dict(images=images, form=form,page=page,tags=tags)
 

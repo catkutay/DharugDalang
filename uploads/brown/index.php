@@ -160,7 +160,7 @@ window.addEvent('domready', function() {
 			</div>
 			<?php endif; ?>
 <div id="logo">
-                         <img align="right" src="http://www.dalang.com.au/Dharug/filedown/images/banners/NPWS_logo.bmp" />
+                         <img align="right" src="/Dharug/default/filedown/images/banners/NPWS_logo.bmp" />
 </div>			
 	</div>
 	

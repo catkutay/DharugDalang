@@ -2,7 +2,7 @@
 import glob
 def index():
 
- redirect(URL(r=request, c='filedown', f='FrontPage.html'))
+ redirect(URL(r=request, c='default', f='filedown', args='FrontPage.html'))
 
 @auth.requires_membership('editor')
 def edit_page():
@@ -328,29 +328,29 @@ def user():
                         session.flash=T("Your registration is being held for approval")
 
                 except:
-        session.flash=T("Mail being held for approval")
+                    session.flash=T("Mail being held for approval")
 
-        redirect(URL(r=request, c='plugin_wiki', f='index'))
-        db.auth_user[form.vars.id] = dict(registration_key='pending')
+                    redirect(URL(r=request, c='plugin_wiki', f='index'))
+                db.auth_user[form.vars.id] = dict(registration_key='pending')
         else:
             session.flash=T("Password and confirm Password  must match")
             form=auth.register()
-        elif request.args(0)=='login':
+    elif request.args(0)=='login':
             if request.env.http_referrer:
 
                 auth.settings.login_next =redirect(request.env.http_referrer)
-        return dict(form=auth.login())
+            return dict(form=auth.login())
 
     else:
         if request.env.http_referrer:
             auth.settings.login_next =redirect(request.env.http_referrer)
-        return dict(form=form)
+    return dict(form=form)
 
 def _user():
    #without layout and need to direct form to this method
         from gluon.tools import Mail
         form=auth()
-	if request.args(0)=='register':
+        if request.args(0)=='register':
                 if form.accepts(request.vars, session):
                    try:
                         mail=Mail()
@@ -369,8 +369,8 @@ def _user():
                 if request.env.http_referrer:
 
                         auth.settings.login_next =redirect(request.env.http_referrer)
-		form=auth.login()
-		redirect (URL('user',args='login'))
+                form=auth.login()
+                redirect (URL('user',args='login'))
 
         else:
                 if request.env.http_referrer:
@@ -406,18 +406,20 @@ logger.setLevel(logging.DEBUG)
 
 
 def filedown():
-   try:
-    subdirectory = 'uploads/'# directory
-    i=1
-    filename = request.args(0)
-    while(filename!=None):
-        subdirectory = os.path.join(subdirectory, filename)
-        filename = request.args(i)
-        i+=1
-    fullpath=subdirectory
-    except IOERROR:
+
+    try:
+        subdirectory = 'uploads/'# directory
+        i=1
+        filename = request.args(0)
+        while(filename!=None):
+            subdirectory = os.path.join(subdirectory, filename)
+            filename = request.args(i)
+            i+=1
+        fullpath=subdirectory
+        response.stream(os.path.join(request.folder, fullpath))
+    except OSError as err:
         pass
-    response.stream(os.path.join(request.folder,fullpath))
+
 
 import re
 def references():

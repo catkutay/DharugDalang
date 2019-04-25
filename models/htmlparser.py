@@ -7,7 +7,7 @@ class langHTMLParser(HTMLParser):
     from io import StringIO
     def __init__(self):
         HTMLParser.__init__(self)
- 	#words=StringIO.StringIO()
+        #words=StringIO.StringIO()
     
     def handle_starttag(self, tag, attrs):
         self.words+=' <'+tag
@@ -74,8 +74,8 @@ class langHTMLParser(HTMLParser):
                 sample.info="DHTMLSound('"+str(sample.Sound)+"','"+str(sample.info)+"');"
                 substitute1='<a href="/Dharug/language/view_word/'+str(sample.id)+'" target="_blank" onMouseOver="'+str(sample.info)+'" > '+word+' </a> '
             else:
-                        sample.info="DHTMLText('"+str(sample.info)+"');"
-                        substitute1='<a href="/Dharug/language/view_word/'+str(sample.id)+'" target="_blank" onMouseOver="'+str(sample.info)+'" > '+word+' </a> '
+                sample.info="DHTMLText('"+str(sample.info)+"');"
+                substitute1='<a href="/Dharug/language/view_word/'+str(sample.id)+'" target="_blank" onMouseOver="'+str(sample.info)+'" > '+word+' </a> '
 
             word=substitute1
         else:
