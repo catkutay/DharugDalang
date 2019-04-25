@@ -46,7 +46,8 @@ def wsread_page(page):
         for name in files:
             name=os.path.split(name)[1]
             examples.append(name)
-    examples.sort(lambda x,y: -cmp(len(x), len(y)))
+
+    #examples=sorted(examples, key=lambda row: row.English,reverse=True)
 
     for example in examples:
         text=os.path.splitext(example)[0]
@@ -59,6 +60,7 @@ def wsread_page(page):
     #logging.warn(page_body)  
     parags=r.split(page_body)
     paragraphs=""
+    item=[]
     for parag in parags:
        if parag:
             if parag.startswith('<a') or parag.startswith('<source') or parag.startswith('<src=') or parag.startswith('<img '):
@@ -73,30 +75,31 @@ def wsread_page(page):
                       #          item=SoundLinks[i]
 
                     #find pargraphs in site 
-            newparags=re.split(r'(<a.*?<\/a>)',parag)
-            parag=""
-            for newparag in newparags:
-                if newparag.startswith('<a'):
-                        parag+=newparag
+                    newparags=re.split(r'(<a.*?<\/a>)',parag)
+                    parag=""
+                    for newparag in newparags:
+                        if newparag.startswith("<a"):
+                            parag+=newparag
 
-                else:
-                    if re.search(r'\W'+item["text"]+r'\W',newparag):
-                          while i<k-1 and  SoundLinks[i+1]["text"]==SoundLinks[i]["text"]:
-                              Info=""
-                              if item["type"]=="file":
-                                    Sound = urllib.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
-                              else:
-                                    Sound = urllib.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
-                if Info=="":
-                    Info="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
-                else:
-                    Info+="DHTMLLoadSound('"+str(Sound)+"','"+str(item["text"])+"');"
+                        else:
 
-                i+=1
-                newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
+                            if re.search(r'\W'+item["text"]+r'\W',newparag):
+                                while i<k-1 and  SoundLinks[i+1]["text"]==SoundLinks[i]["text"]:
+                                    Info=""
+                                    if item["type"]=="file":
+                                        Sound = urllib.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
+                                    else:
+                                        Sound = urllib.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
+                                    if Info=="":
+                                        Info="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
+                                    else:
+                                        Info+="DHTMLLoadSound('"+str(Sound)+"','"+str(item["text"])+"');"
 
-                parag+=newparag
-                i+=1
+                                    i+=1
+                                newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
+
+                            parag+=newparag
+                    i+=1
 
                 paragraphs+=parag
 

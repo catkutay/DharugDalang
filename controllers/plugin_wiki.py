@@ -240,13 +240,9 @@ def resource():
         pass
     if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
     slug=resource_title.strip().replace(' ','_').lower()
-    logging.warn (slug)
-    logging.warn (slug=="jakelin_troy_sydney_languages_book")
-    resource=db(db.resources.slug==slug).select()
 
-    logging.warn(resource)
-    resource=resource.first()
-    logging.warn(resource)
+    resource=db(db.resources.slug==slug).select().first()
+
     if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
     resource_id=db(db.resources.slug==slug).select()
     transcriptions=db(db.elan.resource_id==resource_id[0].id)
@@ -279,25 +275,31 @@ def tags_by_tag():
     title="No results"
     try:
         tag_id= str(request.args[0])
+
     except (KeyError, ValueError, TypeError):
         redirect(URL(r=request, c='plugin_wiki', f='pages'))
       	
     tag=db.plugin_wiki_tag(id=tag_id)
+
     if (tag!=None):
         tag.is_active=True;
         tags=db(db.plugin_wiki_tag.parent==tag.name).select()
+
     try:
         page_id= str(request.args[1])
     except(KeyError, IndexError,ValueError, TypeError):
         page_id=str(request.args[0])
     if (page_id.isdigit()):
+
         tag_name=db.plugin_wiki_tag(id=tag_id).name
+
 
     try:
                 tag=db.plugin_wiki_tag(id=tag_id)
     except (KeyError, ValueError, TypeError):
                 tag=db.plugin_wiki_tag(name=tag_id)
                 tag_id=tag.id
+
     if (tag!=None):
                 tag.is_active=True;
                 tags=db(db.plugin_wiki_tag.parent==tag.name).select()
@@ -313,26 +315,33 @@ def tags_by_tag():
     tag_parent=tag_obj.parent
     tag=db.plugin_wiki_tag(name=tag_parent)
     if (tag): tag.is_active=True
-        
+
 
     query = ((db.plugin_wiki_page.tags.like('%%|%s|%%' % tag_id)))
-#        pages = db(query).select(orderby=~db.plugin_wiki_page.created_on)
+
     if (tags):
+
                         page = db(query).select(orderby=~db.plugin_wiki_page.created_on).first()
+
                         if (page and page.worksheet):
                                 page.body=wsread_page(page)
                                 title="Latest article:"
+
     else:
                         pages = db(query).select(orderby=~db.plugin_wiki_page.created_on)
+                        logging.warn(pages)
                         if(len(pages)>0):
+
                                 title="Pages available are:"
                                 page=pages[0]
+
                                 try:
                                         page=pages[1]
                                 except:
                                         title="Page:"
                                         page=pages[0]
-                                        page.body=wsread_page(pages[0])
+
+                                        page.body=wsread_page(page)
                                         pages=None
 
         #else:
@@ -343,17 +352,19 @@ def tags_by_tag():
 #                       if (page.worksheet):page.body=wsread_page(page)
     if(page!=None):
                 page_body=page.body
-                #if tag_name!=None:
-                #       page_body=''
-    form=""
-    #read wordlist
-    query = (dblanguage.Dharug.Category==tag_name)
+    form = ""
+    words=[]
+    if page.worksheet:
 
-    words=  dblanguage(query).select(orderby=dblanguage.Dharug.English)
-    for word in words:
+    #read wordlist
+        query = (dblanguage.Dharug.Category==tag_name)
+
+        words=  dblanguage(query).select(orderby=dblanguage.Dharug.English)
+        for word in words:
                 word=read_word(word)
-    if (words and page==None):
+        if (words and page==None):
                 title="Words in Category"
+
     return dict(tag=tag, words=words,form=form,pages=pages,title=title,page=page,page_body=page_body)
 
 
