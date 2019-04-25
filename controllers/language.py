@@ -306,7 +306,7 @@ def view_word():
     related = []
     if word.RelatedWord:
 
-        relates=word.Related.split(',')
+        relates=word.RelatedWord.split(',')
         for relate in relates:
                 relate=relate.strip()
                 relateid=dblanguage.Dharug(dblanguage.Dharug.Language_Word.like( "%%%s%%" %relate, case_sensitive=False))
@@ -322,6 +322,7 @@ def view_word():
                     relateid=relate.id
                     relate=A(relate.Language_Word,_target="_blank",_href="/language/view_word/"+str(relateid))
                     related.append(relate)
+    logging.warn(word.Sound)
     return dict(link = link, word=word, related=related,exampleSentences=examples, language=language )
 
 def view_word_popup():
@@ -354,6 +355,7 @@ def create_word():
     create_word = request.args(0)
     name=create_word.replace('_',' ')
 
+    word=languageword(Search_English==name)
     word=languageword(Search_English==name)
     form = crud.create(dblanguageword)
     return dict(word=word, form=form)
