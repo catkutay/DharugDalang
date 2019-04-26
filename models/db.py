@@ -20,15 +20,16 @@ class SlugValidator(Validator):
         return (value.replace(' ', '_'), None)
 #set for each language
 language='Dharug'
-
+from gluon.tools import *
 import uuid
-try:
-    from gluon.contclw.gql import *  # if running on Google App Engine
-except:
-    #db = SQLDB('sqlite://storage.db')  # if not, use SQLite or other DB
-    dblanguage= DAL('mysql://language_admin:budyari@localhost/language', pool_size=0,migrate=False, fake_migrate=True)
 
-    db= DAL('mysql://language_admin:budyari@localhost/'+language, pool_size=0,migrate=False, fake_migrate=True)
+
+# db = MySQLdb.connect(host='localhost', user='user1', passwd='user1', db='test_rma')
+#db = #mysql.connector.connect(user='language_admin', password='budyari10',  host='localhost', database='language')
+
+
+db= DAL('mysql://language_admin:budyari10@localhost/'+language, pool_size=0,migrate=False, fake_migrate=True)
+dblanguage=DAL('mysql://language_admin:budyari10@localhost/language', pool_size=0,migrate=False, fake_migrate=True)
 
 session.connect(request, response, db=db)  # and store sessions there
 
@@ -36,7 +37,7 @@ import sys, nltk, re, pprint # NLTK and related modules -- are these all needed?
 from  nltk.tokenize.punkt import PunktSentenceTokenizer
 
 
-from gluon.tools import *
+
 
 #need python-gdate in fdora 16
 #from gdata.calendar import service, data

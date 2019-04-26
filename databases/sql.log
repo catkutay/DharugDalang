@@ -70,3 +70,15 @@ CREATE TABLE web2py_session_Dharug(
     PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET utf8;
 faked!
+timestamp: 2019-04-26T15:42:44.943474
+CREATE TABLE `web2py_session_Dharug`(
+    `id` INT AUTO_INCREMENT NOT NULL,
+    `locked` CHAR(1),
+    `client_ip` VARCHAR(64),
+    `created_datetime` DATETIME,
+    `modified_datetime` DATETIME,
+    `unique_key` VARCHAR(64),
+    `session_data` LONGBLOB,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB CHARACTER SET utf8;
+faked!

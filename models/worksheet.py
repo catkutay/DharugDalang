@@ -46,8 +46,7 @@ def wsread_page(page):
         for name in files:
             name=os.path.split(name)[1]
             examples.append(name)
-    logging.warn(examples)
-    logging.warn("here")
+
     examples=sorted(examples, key=lambda row: row.English,reverse=True)
 
     while (index<len(examples)):
