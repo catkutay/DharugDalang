@@ -408,12 +408,12 @@ def read_word(word):
             parts= word.Language_Word.split(',')
             word.Soundfile=parts[0]+".mp3"
             if os.path.exists('applications/'+language+'/uploads/media/sounds/'+link+'/'+word.Soundfile):
-                        word.Sound+=URL(r=request, c='default',f='sounds/'+link, args=word.Soundfile)+";"
+                        word.Sound+=link+'; '+URL(r=request, c='default',f='sounds/'+link, args=word.Soundfile)+";"
             else:
 #if exists wav and mp3 use one
                 word.Soundfile=parts[0]+".wav"
                 if os.path.exists('applications/'+language+'/uploads/media/sounds/'+link+'/'+word.Soundfile):
-                    word.Sound+=URL(r=request, c='default',f='sounds/'+link, args=word.Soundfile)+";"
+                    word.Sound+=link+'; '+URL(r=request, c='default',f='sounds/'+link, args=word.Soundfile)+";"
     if word.Sound=="":
         word.Sound=";"  #add the voice as empty
     if (word.Image): word.Image=word.Image.strip()

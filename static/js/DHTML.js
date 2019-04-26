@@ -64,13 +64,17 @@ function DHTMLSound(surl, text) {
 		hp.style.width="35%";
 	}
 	files=surl.split(';')
-	console.log(files)
-        text ='<audio controls="None" autoplay> <source height="30px" src="' + files[0]+ '"    type="audio/mpeg"></audio>'
-	//ignore last ';'
-        for (i=1; i<files.length-1;i++){
-	   text +='<audio controls="None" > <source height="30px" src="' + files[i]+ '"    type="audio/mpeg"></audio>'
+	
+        text =files[0]+' <audio controls="None" autoplay> <source height="30px" src="' + files[1]+ '"    type="audio/mpeg"></audio>'
+	//ignore first and last ';'?
+        for (i=2; i<files.length-1;i++){
+	   console.log("first")
+	   console.log(files[i])
+           console.log(files[i+1])
+	   text +='<br>'+files[i]+'<audio controls="None" > <source height="30px" src="' + files[i+1]+ '"    type="audio/mpeg"></audio>'
 	   // more than one item so need controller
 	   hp.style.display="block";
+	   i+=1; //adding a comment as to source of each file ( as first file reference) so skip two each entry
 	}
 	hp.innerHTML=text+' '+'<div style="float:right;"><a onclick=stopText("popupword")  >Close</a><\div> ';
 }

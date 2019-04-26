@@ -46,13 +46,16 @@ def wsread_page(page):
         for name in files:
             name=os.path.split(name)[1]
             examples.append(name)
+    logging.warn(examples)
+    logging.warn("here")
+    examples=sorted(examples, key=lambda row: row.English,reverse=True)
 
-    #examples=sorted(examples, key=lambda row: row.English,reverse=True)
-
-    for example in examples:
-        text=os.path.splitext(example)[0]
+    while (index<len(examples)):
+        text=os.path.splitext(example[index+1])[0]
         if text  in page_body:
-                 SoundLinks.append({'text':text,'sound':str(example), 'type':'file'})
+                 SoundLinks.append({'text':text +str(example[index]),'sound':str(example[index+1]), 'type':'file'})
+
+
 
     r = re.compile(r'(<s.*?>|<a.*?<\/a>|<img.*?>)')
     SoundLinks=sorted(SoundLinks, key=lambda k: k['text'])
