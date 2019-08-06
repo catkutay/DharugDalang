@@ -1,4 +1,6 @@
-import re, os
+import re, os, urllib
+
+
 
 def wsread_question(page_body, page):
     return page
@@ -12,7 +14,7 @@ def wordlist(topic_id):
     return dict(words=wordlist)
 
 def wsread_page(page):
-    logging.warn("Wsread_page")
+    logging.warn("Running Wsread_page")
     page_body = page.body
     worksheet = db(db.plugin_wiki_tag.name=="WorkSheet").select().first()
         #FIXME
@@ -43,59 +45,71 @@ def wsread_page(page):
 #file examples
     #examples=os.listdir('applications/'+language+'/uploads/media/sounds')
     examples=[]
+
     for path, subdirs, files in os.walk('applications/'+language+'/uploads/media/sounds'):
         for name in files:
-            name=os.path.split(name)[1]
+            name = os.path.split(name)[1]
             examples.append(name)
-    examples.sort(lambda x,y: -cmp(len(x), len(y)))
+            # examples.sort(lambda x,y: -cmp(len(x), len(y)))
+    examples=sorted(examples,key=lambda x: len(x))
 
     for example in examples:
-	text=os.path.splitext(example)[0]
+        text=os.path.splitext(example)[0]
         if text  in page_body:
                  SoundLinks.append({'text':text,'sound':str(example), 'type':'file'})
 
     r = re.compile(r'(<s.*?>|<a.*?<\/a>|<img.*?>)')
     SoundLinks=sorted(SoundLinks, key=lambda k: k['text'])
     k=len(SoundLinks)
-    #logging.warn(page_body)  
-    parags=r.split(page_body)
-    paragraphs=""
-    for parag in parags:
-       if parag:
+
+    if k>0:
+        #logging.warn(page_body)
+        parags=r.split(page_body)
+        paragraphs=""
+        item = SoundLinks[0]
+        for parag in parags:
+          if parag:
+
             if parag.startswith('<a') or parag.startswith('<source') or parag.startswith('<src=') or parag.startswith('<img '):
                 paragraphs+=parag
             else:
                 i=0
                 while i<k:
-		    item=SoundLinks[i]
+                    item=SoundLinks[i]
                     while i<k-1 and  SoundLinks[i+1]["text"]==SoundLinks[i]["text"]:
                                 #get most recent version
-                                i+=1
+                                i += 1
                                 item=SoundLinks[i]
 
-                    #find pargraphs in site 
-		    newparags=re.split(r'(<a.*?<\/a>)',parag)
-		    parag=""
-		    Info=""
-	 	    for newparag in newparags:
-		      if newparag.startswith('<a') :
-                		parag+=newparag
-            	      else:
-			if re.search(r'\W'+item["text"]+r'\W',newparag):
-                          if item["type"]=="file":
-                            Sound = urllib.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
-                          else:
-                            Sound = urllib.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
-                          Info+="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
-                          newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
+                    #find pargraphs in site
 
-		        parag+=newparag
-		    i+=1
+                    newparags=re.split(r'(<a.*?<\/a>)',parag)
+
+                    parag=""
+                    Info=""
+                    for newparag in newparags:
+                        if newparag.startswith('<a') :
+                            parag+=newparag
+                        else:
+                            if re.search(r'\W'+item["text"]+r'\W',newparag):
+                                if item["type"]=="file":
+                                    Sound = urllib.parse.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
+                                else:
+                                    Sound = urllib.parse.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
+                                if Info=="":
+                                        Info="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
+
+                                else:
+                                    Info += "DHTMLSound('" + str(Sound) + "','" + str(item["text"]) + "');"
+                                newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
+
+                            parag+=newparag
+                    i+=1
 
                 paragraphs+=parag
 
 
-    page_body=paragraphs
+        page_body=paragraphs
 
     #parser = langHTMLParser()
 
@@ -120,10 +134,10 @@ def wsread_page(page):
              #       if words[i].startswith('<a') or words[i].startswith('<s'):
               #          pass
                #     else:
-                #            substitute = '<a href="/Bundjalung/plugin_wiki/page/'+pagetitle.title+'">'+page_title+'</a>'
+                #            substitute = '<a href="/plugin_wiki/page/'+pagetitle.title+'">'+page_title+'</a>'
                  #           words[i]= pCap.sub(substitute,words[i])
                   #          if(pCap!=pSmall):
-                   #                 substitute = '<a href="/Bundjalung/plugin_wiki/page/'+pagetitle.title+'">'+page_title.lower()+'</a>'
+                   #                 substitute = '<a href="/plugin_wiki/page/'+pagetitle.title+'">'+page_title.lower()+'</a>'
                     #                words[i] = pSmall.sub(substitute,words[i])
                      #       i+=2
     #            for word in words:

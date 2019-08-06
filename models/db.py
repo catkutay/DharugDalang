@@ -217,10 +217,10 @@ dblanguage.define_table('images',
                 Field('title',requires=IS_NOT_EMPTY()),
                 Field('filename','upload',requires=IS_NOT_EMPTY(),autodelete=True),
                 Field('category','string'),
-                Field( 'Community','string',default='Dharug'),
+               # Field( 'Community','string',default='Dharug'),
                 migrate=False)
 images= dblanguage['images']
-images.Community.requires = IS_IN_DB(db, 'region.id', '%(name)s')
+#images.Community.requires = IS_IN_DB(db, 'region.id', '%(name)s')
 
 db.define_table('topics',
 

@@ -440,7 +440,7 @@ def page():
     slug= request.args(0) 
     import re
     if slug=="Index" or slug==None:
-        redirect(URL(r=request, c='plugin_wiki', f='index.html'))
+        redirect(URL(r=request, c='plugin_wiki', f='index'))
     if slug=="Admin_Help" and not auth.user:
         redirect(URL(r=request, c='plugin_wiki', f='pages'))
     if (slug=="resources" or slug=="written_examples_of_the_language" or slug=="dictionary") and not auth.user:
@@ -525,19 +525,25 @@ def edit_page():
                         body=request.vars.template and w(slug=request.vars.template).body or '')
     else:
         tags = page.tags #in practice 'xyz' would be a variable
+    options = []
     if page.title=="Index":
         form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
     else:
         if page.worksheet:
-            images=dblanguage(dblanguage.images.id>0).select()
+            imageslist=dblanguage(dblanguage.images.id>0).select()
             form = crud.update(w, page, deletable=True, onaccept=crud.archive,next=URL(r=request,c='learning', f='page',args=slug))
-
+            options = db(db.plugin_wiki_tag.parent == "index").select(orderby=db.plugin_wiki_tag.id)
+            optionnames = []
+            for option in options:
+                optionnames.append(option.name.replace(' ', '_'))
+            options = optionnames
+            options = (set(options))
         else:
-            images=[]
+            imageslist=[]
             form = crud.update(w, page, deletable=True, onaccept=crud.archive, next=URL(r=request,c='plugin_wiki', f='page',args=slug))
 
-    return dict(images=images, form=form,page=page,tags=tags)
+    return dict(images=imageslist, form=form,page=page,tags=tags, options=options)
 
 
 def page_history():

@@ -11,7 +11,7 @@ from nltk.corpus import abc
 
 import os, sys
 from  nltk.tokenize.punkt import PunktSentenceTokenizer
-from worksheet import wsread_page
+#from worksheet import wsread_page
 
 def translate_word(word, lang, ws, wd):
 				reduced_word = ws.stem(word, hide_suffixes = False, show_translation = True, show_pos=True)
@@ -46,12 +46,12 @@ def print_words(words):
 	english = ""
 	pos=""
 	for word in words:
-        printed_word = print_word(word)
-    AboriginalLanguage += printed_word[0] +" "
-						english +=  printed_word[1] +" "
-						pos+= printed_word[2]+" "
+		printed_word = print_word(word)
+		AboriginalLanguage += printed_word[0] +" "
+		english +=  printed_word[1] +" "
+		pos+= printed_word[2]+" "
 
-				return [AboriginalLanguage, english, pos]
+	return [AboriginalLanguage, english, pos]
 
 def print_word(word):
 	stem = word[0]
@@ -158,21 +158,21 @@ def pages():
 	t=db.plugin_wiki_tag
 	taglist=db(t.id>0).select(orderby=t.id)
 	words=None
-	if plugin_wiki_editor:
+	if auth.user:
 			pages = db(w.worksheet==True).select(orderby=w.title)
 	else:
 				pages = db(w.worksheet==True)(w.is_public==True).select(orderby=w.title)
 
-	if plugin_wiki_editor:
-				form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires))
-				if form.accepts(request.vars):
-						title=request.vars.title
-						page =db(w.title==title).select().first()
-						if not page:
-								page = w.insert(slug=title.replace(' ','_'),
-								title=title,worksheet="T",
-								body=request.vars.template and w(slug=request.vars.template).body or '')
-						redirect(URL(r=request,c="plugin_wiki",f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
+	if auth.user:
+		form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires))
+		if form.accepts(request.vars):
+			title=request.vars.title
+			page =db(w.title==title).select().first()
+			if not page:
+				page = w.insert(slug=title.replace(' ','_'),
+				title=title,worksheet="T",
+				body=request.vars.template and w(slug=request.vars.template).body or '')
+			redirect(URL(r=request,c="plugin_wiki",f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
 	else:
 				form=''
 	return dict(query=request.vars.query, taglist=taglist, pages=pages, form=form)
@@ -191,7 +191,7 @@ def page():
 
 	w = db.plugin_wiki_page
 
-	if plugin_wiki_editor:
+	if auth.user:
 			pages = db(w.worksheet==True).select(orderby=w.title)
 	else:
 
@@ -201,7 +201,7 @@ def page():
 
 	#for template
 	if (not page or not page.is_public or not page.is_active):
-		 if plugin_wiki_editor:
+		 if auth.user:
 				redirect(URL(r=request, c='plugin_wiki', f='edit_page', args=request.args))
 		 if (session):session.flash=T("Page not available")
 

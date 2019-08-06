@@ -171,11 +171,11 @@ db.define_table('resources',
                 Field('file','string',length=100),
 
                 Field('Collected_by','string',length=100),
-		Field('description','string', length=500),
-		Field('type', 'string', length=10),
-		Field('Public','boolean', default=False),
+		        Field('description','string', length=500),
+		        Field('type', 'string', length=10),
+		        Field('Public','boolean', default=False),
                 Field('Active','boolean', default=False),
-               Field('Teaching','boolean', default=False),
+                Field('Teaching','boolean', default=False),
                 migrate=plugin_wiki_migrate)
 
 db.define_table('elan',
@@ -201,7 +201,7 @@ db.define_table('plugin_wiki_comment',
 
 db.define_table('plugin_wiki_images',
                 Field('id','integer',writable=False,readable=False),
-		Field('name',requires=IS_NOT_EMPTY()),
+		        Field('name',requires=IS_NOT_EMPTY()),
                 Field('filename','upload',requires=IS_NOT_EMPTY(),autodelete=True),
                 auth.signature,
                 format='%(name)s', migrate=plugin_wiki_migrate)
@@ -210,7 +210,7 @@ db.define_table('plugin_wiki_images',
 db.define_table('plugin_wiki_tag',
                 Field('name',requires=IS_NOT_IN_DB(db,'plugin_wiki_tag.name')),
                 Field('parent',requires=(IS_IN_DB(db,'plugin_wiki_tag.name') )),
-		auth.signature,
+		        auth.signature,
                 format='%(name)s', migrate=plugin_wiki_migrate)
 
 
@@ -530,7 +530,7 @@ jQuery(document).ready(function(){jQuery("#%(id)s").jqGrid({ url:'%(callback)s',
         - ``record_id`` is the id of the record
         """
         return LOAD('plugin_wiki','comment',
-                    args=(table,record_id or 0),ajax=True)
+             args=(table,record_id or 0),ajax=True)
 
     @staticmethod
     def tags(table='None',record_id=None):
@@ -807,6 +807,7 @@ class PluginWiki(object):
 
     def render_html(self,text,page_url=URL()):
         import re
+        logging.warn (page_url)
         text = text.replace('href="page:','href="%s/' % page_url) 
         att_url = URL(r=request,c='plugin_wiki',f='attachment')
         text = text.replace('src="attachment:', 'src="%s/' % att_url)
