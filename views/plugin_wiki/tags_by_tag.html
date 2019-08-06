@@ -1,5 +1,4 @@
 {{extend 'layout.html'}}
-
 </p>
 {{if pages:}}
 <div class='col-xs-4'><p><strong>{{=title}}</strong>
@@ -20,7 +19,9 @@
 
 {{ if page!=None:}}
 <div class='col-xs-8'>
-<strong>{{=page.title}}</strong>{{=plugin_wiki.render(page.summary)}}
+<strong>{{=page.title}}</strong>
+
+{{=plugin_wiki.render(page.summary)}}
 {{=plugin_wiki.render(page_body)}}
 <br>
 <p>{{if plugin_wiki_editor:}}

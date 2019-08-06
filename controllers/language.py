@@ -2,7 +2,7 @@ import string
 
 # NOte the existence of languageList!=None means this is part of dictinary interface
 languageList=language
-@auth.requires_login()
+
 def index():
     words=dblanguage(dblanguage.Dharug.id>0).select( orderby=dblanguage.Dharug.English)
 
@@ -95,6 +95,7 @@ def lesson():
     if wl:
         for word in wl['words']:
             word,examples=read_word(word)
+
             condition = dblanguage.DharugExamples.language_id==word.id
 
             #examples=dblanguage(condition).select(dblanguage.DharugExamples.ALL)
@@ -123,7 +124,7 @@ def lesson():
 
     return dict(wordlist=wordjson)
 
-#@auth.requires_login()
+
 def dictionary():
     names = db(db.dialect.id>0).select(db.dialect.name)
     numerics=[]

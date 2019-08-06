@@ -9,7 +9,20 @@
 </div>
    <!-- Page Content -->
 <div class="container">
-            <div class="col-sm-2">
+
+            <div class="col-sm-4">
+<br><br>
+<strong>Lessons</strong>
+<hr>
+<table>
+<tbody>
+{{for pageitem in pages:}}
+<tr><td> {{=A(pageitem.title,_href=URL(r=request,f='page',args=pageitem.slug))}}
+<br><i>{{=A(plugin_wiki.render(pageitem.summary),_href=URL(r=request,c='learning', f='page',args=pageitem.slug))}}</i>
+<hr></td></tr>
+{{pass}}
+</tbody>
+</table>
 </div>
 <div class="col-sm-8">
 
@@ -69,17 +82,17 @@ $(window).scroll(function (){
     if (ell){
         if(windowpos<ellpos_original) {
                 finaldestination = ellpos_original;
-                ell.stop().css({'top':10});
+                ell.stop().css({'top':-100});
         } else {
-                ell.stop().animate({'top':finaldestination-ellpos_original+10},500);
+                ell.stop().animate({'top':finaldestination-ellpos_original-100},500);
         }
     }
     if (er){
         if(windowpos<erpos_original) {
                 finaldestination = erpos_original;
-                er.stop().css({'top':10});
+                er.stop().css({'top':-100});
         } else {
-                er.stop().animate({'top':finaldestination-erpos_original+10},500);
+                er.stop().animate({'top':finaldestination-erpos_original-100},500);
         }
     }
 });

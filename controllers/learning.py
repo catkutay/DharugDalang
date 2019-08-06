@@ -5,16 +5,13 @@
 # -*- coding: utf-8 -*-
 # try something like
 
-#import altk
-#from altk.dictionary import *
-#from altk.tagger import *
-#from altk.stemmer import *
 import urllib
-#import nltk, re, pprint # NLTK and related modules -- are these all needed?
-#from nltk.corpus import abc
+import nltk, re, pprint # NLTK and related modules -- are these all needed?
+from nltk.corpus import abc
 
 import os, sys
-#from  nltk.tokenize.punkt import PunktSentenceTokenizer
+from  nltk.tokenize.punkt import PunktSentenceTokenizer
+from worksheet import wsread_page
 
 def translate_word(word, lang, ws, wd):
 				reduced_word = ws.stem(word, hide_suffixes = False, show_translation = True, show_pos=True)
@@ -33,11 +30,14 @@ def translate_word(word, lang, ws, wd):
 				return (translated_stem, translated_suffixes)
 
 def translate_stem(stem, lang, wd):
+
 	if lang!="English":
 		if wd.has_word(stem):
+
 			return (stem, wd.getEnglish(stem), wd.getPartEng(stem))
-		else:
-			if wd.has_eng_word(stem):
+	else:
+
+		if wd.has_eng_word(stem):
 				return (stem, wd.getLanguage(stem), wd.getPartLang(stem))
 	return (stem, stem, 'Unknown')
 
@@ -46,14 +46,12 @@ def print_words(words):
 	english = ""
 	pos=""
 	for word in words:
+        printed_word = print_word(word)
+    AboriginalLanguage += printed_word[0] +" "
+						english +=  printed_word[1] +" "
+						pos+= printed_word[2]+" "
 
-		printed_word = print_word(word)
-
-		AboriginalLanguage += printed_word[0] +" "
-		english +=  printed_word[1] +" "
-		pos+= printed_word[2]+" "
-
-	return [AboriginalLanguage, english, pos]
+				return [AboriginalLanguage, english, pos]
 
 def print_word(word):
 	stem = word[0]
@@ -71,31 +69,32 @@ def print_word(word):
 	return [AboriginalLanguage, english,pos]
 
 def print_stem(stem):
-	AboriginalLanguage = stem[0]
-	english = stem[1]
-	#create array
-	pos=stem[2]
-	w_length = len(AboriginalLanguage)
-	e_length = len(english)
 
-	length = max(w_length, e_length)
-	AboriginalLanguage = AboriginalLanguage.center(length)
-	english = english.center(length)
-	if pos: pos = pos.center(length)
-	return [AboriginalLanguage, english, pos]
+				AboriginalLanguage = stem[0]
+				english = stem[1]
+				#create array
+				pos=stem[2]
+				w_length = len(AboriginalLanguage)
+				e_length = len(english)
+
+				length = max(w_length, e_length)
+				AboriginalLanguage = AboriginalLanguage.center(length)
+				english = english.center(length)
+				if pos: pos = pos.center(length)
+				return [AboriginalLanguage, english, pos]
 
 def print_suffix(suffix):
-	AboriginalLanguage = "-" + suffix[0]
-	english = " " + suffix[1]
-	pos = " "+suffix[2]
-	w_length = len(AboriginalLanguage)
-	e_length = len(english)
+				AboriginalLanguage = "-" + suffix[0]
+				english = " " + suffix[1]
+				pos = " "+suffix[2]
+				w_length = len(AboriginalLanguage)
+				e_length = len(english)
 
-	length = max(w_length, e_length)
-	AboriginalLanguage = AboriginalLanguage.center(length)
-	english = english.center(length)
-	pos= pos.center(length)
-	return [AboriginalLanguage, english, pos]
+				length = max(w_length, e_length)
+				AboriginalLanguage = AboriginalLanguage.center(length)
+				english = english.center(length)
+				pos= pos.center(length)
+				return [AboriginalLanguage, english, pos]
 
 
 def parser():
@@ -108,7 +107,7 @@ def parser():
 	elif not(searchterm):
 		return dict(wordlist=False, words=None, query=searchterm)
 
-### add reference to example sentences
+	### add reference to example sentences
 	if lang=="English":
 
 		query= dblanguage.DharugExamples.English.contains(searchterm.split(), all=True)
@@ -126,8 +125,8 @@ def parser():
 			lastword=word
 		words=results
 	except:
-		### language/dictonary or learning/paerser
-		#redirect (URL(r=request,c="learning",f="parser",vars={'query':searchterm, 'lang':lang}))
+	### language/dictonary or learning/paerser
+	#redirect (URL(r=request,c="learning",f="parser",vars={'query':searchterm, 'lang':lang}))
 		redirect (URL(r=request,c="learning",f="parser"))
 ##else load dictionary
 	wd = dictionary.AboriginalLanguageDictionary()
@@ -140,17 +139,17 @@ def parser():
 
 		for word in newwords:
 			words+= [translate_word(word, lang, ws, wd)]
-			lang=[]
-			english=[]
-			pos=[]
-			for word in words:
-				printed_word = print_word(word)
-				lang.append(printed_word[0])
-				english.append(printed_word[1])
-				pos.append(printed_word[2])
-			leng=len(lang)
+		lang=[]
+		english=[]
+		pos=[]
+		for word in words:
+			printed_word = print_word(word)
+			lang.append(printed_word[0])
+			english.append(printed_word[1])
+			pos.append(printed_word[2])
+		leng=len(lang)
 
-			words=[lang,english,pos]
+		words=[lang,english,pos]
 	return dict(wordlist=True, words=words, query=request.vars.query)
 
 
@@ -160,23 +159,22 @@ def pages():
 	taglist=db(t.id>0).select(orderby=t.id)
 	words=None
 	if plugin_wiki_editor:
-		pages = db(w.worksheet==True).select(orderby=w.title)
+			pages = db(w.worksheet==True).select(orderby=w.title)
 	else:
-		pages = db(w.worksheet==True)(w.is_public==True).select(orderby=w.title)
+				pages = db(w.worksheet==True)(w.is_public==True).select(orderby=w.title)
 
 	if plugin_wiki_editor:
-		form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires),
-							 Field('from_template',requires=IS_EMPTY_OR(IS_IN_DB(db,db.plugin_wiki_page.title))))
-		if form.accepts(request.vars):
-			title=request.vars.title
-			page =db(w.title==title).select().first()
-			if not page:
-				page = w.insert(slug=title.replace(' ','_'),
-								title=title,
+				form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires))
+				if form.accepts(request.vars):
+						title=request.vars.title
+						page =db(w.title==title).select().first()
+						if not page:
+								page = w.insert(slug=title.replace(' ','_'),
+								title=title,worksheet="T",
 								body=request.vars.template and w(slug=request.vars.template).body or '')
-			redirect(URL(r=request,c="plugin_wiki",f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
+						redirect(URL(r=request,c="plugin_wiki",f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
 	else:
-		form=''
+				form=''
 	return dict(query=request.vars.query, taglist=taglist, pages=pages, form=form)
 
 def page():
@@ -192,16 +190,27 @@ def page():
 
 
 	w = db.plugin_wiki_page
+
+	if plugin_wiki_editor:
+			pages = db(w.worksheet==True).select(orderby=w.title)
+	else:
+
+			pages = db(w.worksheet==True)(w.is_public==True).select(orderby=w.title)
+
 	page = w(slug=slug)
+
 	#for template
-	if not page or not page.is_public or not page.is_active:
-		if plugin_wiki_editor: redirect(URL(r=request, c='plugin_wiki', f='edit_page', args=request.args))
-		if session: session.flash=T("Page not available")
-		redirect(URL(r=request, c='plugin_wiki', f='pages'))
+	if (not page or not page.is_public or not page.is_active):
+		 if plugin_wiki_editor:
+				redirect(URL(r=request, c='plugin_wiki', f='edit_page', args=request.args))
+		 if (session):session.flash=T("Page not available")
+
+		 redirect(URL(r=request, c='plugin_wiki', f='pages'))
 	elif page and page.role and not auth.has_membership(page.role):
 		raise HTTP(404)
 		# parse pages. First History
-	if page.worksheet: page.questions=[]
+	if page.worksheet:
+		page.questions=[]
 	page.attachments=[]
 	a=db.plugin_wiki_attachment
 	query = (a.tablename=="page")&(a.record_id==page.id)
@@ -210,29 +219,26 @@ def page():
 	if (page.worksheet):
 
 		page_body = wsread_page(page)
-		#   page=wsread_question(page_body, page)
+	#   page=wsread_question(page_body, page)
 	else:
 		page_body=page.body
-	title=page.title
-
-	return dict(query=request.vars,form="", title=page.title, page=page, page_body=page_body, slug=slug)
+		title=page.title
+	print ('there')
+	return dict(query=request.vars,form="", title=page.title, pages=pages, page=page, page_body=page_body, slug=slug)
 
 def list():
 	page_id=request.args(0)
 	query=request.vars
 #pickup a query of two dimension, not sure why FIXME
-	logging.warn(query)
-#get new word and add
+	#logging.warn(query)
+#get# new word and add
 	try:
 		word_id=query["word_id"]
 
-		logging.warn("adding word")
-
 		word=dblanguage.Dharug(dblanguage.Dharug.id==word_id)
-		#logging.warn(word)
 		db.topics.insert(page_id=page_id,English=word.English,Language=word.Language_Word)
 		db.commit()
-
+		newwords=None
 	except:
 		pass
 
@@ -240,16 +246,18 @@ def list():
 	wl=wordlist(page_id)
 	if wl:
 		for word in wl['words']:
+
 			words.append({"English":word.English,"Language":word.Language})
 	else: wl=None
+	#logging.warn(newwords)
 	return dict(words=words,  page_id=page_id)
 
 def addlist():
-	logging.warn("addlist")
+	#logging.warn("addlist")
 	page_id=request.args(0)
 	query=request.vars
 #pickup a query of two dimension, not sure why FIXME
-	logging.warn(query)
+	#logging.warn(query)
 #get new word and add
 	newwords=None
 	searchterm=None
@@ -283,7 +291,7 @@ def addlist():
 
 
 @auth.requires_login()
-def edit_page():
+def edit_page_old():
 	"""
 	edit a page
 	"""
@@ -295,7 +303,15 @@ def edit_page():
 	w = db.plugin_wiki_page
 	w.role.writable = w.role.readable = plugin_wiki_level>1
 	page = w(slug=slug)
+	imgActions=[]
+	imageAction=os.listdir("applications/Dharug/uploads/media/images/Actions")
+	for image in imageAction:
+		imgActions.append(image)
 
+	imgNames=[]
+	imageName=os.listdir("applications/Dharug/uploads/media/images/Names")
+	for image in imageName:
+		imgNames.append(image)
 	imgAll=[]
 	imageAll=os.listdir("applications/Dharug/uploads/media/images")
 	for image in imageAll:
@@ -319,8 +335,8 @@ def edit_page():
 		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
 					   next=URL(r=request, c='plugin_wiki', f='index'))
 	else:
-				form = crud.update(w, page, deletable=True, onaccept=crud.archive,
+		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
 				next=URL(r=request,c='learning', f='page',args=slug))
 
-	return dict(form=form,page=page,tags=tags, imageAll=imgAll)
+	return dict(form=form,page=page,tags=tags, imageActions=imgActions, imageAll=imgAll,imageNames=imgNames)
 

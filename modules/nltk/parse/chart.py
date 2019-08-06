@@ -560,7 +560,7 @@ class Chart(object):
         """
         return len(self._edge_to_cpls)
 
-    def select(self, **restrictions):
+    def select(self, restrictions: object) -> object:
         """
         Return an iterator over the edges in this chart.  Any
         new edges that are added to the chart before the iterator

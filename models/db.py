@@ -364,7 +364,15 @@ response.menuUploads=[
 response.menuLogin=[
       ['Login', False, URL(r=request, c='default' , f='_user', args='login')],
     ]
-    
+
+response.menuTeaching=[
+        ['Pages', False, URL(r=request, c='learning', f='pages')],
+        ['Resources', False, URL(r=request, c='plugin_wiki', f='resources', args='2')],
+
+]
+response.menuProfile=[['Help Pages', False, URL(r=request,c='plugin_wiki', f='tags_by_tag', args='4')]]
+
+
 if auth.is_logged_in():
 
     response.menuTop.insert(4,

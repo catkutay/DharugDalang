@@ -2,17 +2,17 @@
                 <h4>Search </h4>
                 <form method="get" id="getparse" action="{{=URL(r=request,c='learning', f='parser')}}">
                     <fieldset>
-                    <input type="radio" name="lang" value="English" />English
-                    <input type="radio" name="lang" value={{=language}} checked />{{=language}}
+                    <input type="radio" name="lang" value="English" checked />English
+                    <input type="radio" name="lang" value={{=language}} />{{=language}}
 
           
           <input size="50" type="text" id="s" name="query" value="" />
-<input type="submit" value="Search" />
-<a onclick=stopText('popupsearch') href="#"  >Close</a>
+<input type="submit" value="Search" /><div style="float:right;">
+<a onclick=stopText('popupsearch')  >Close</a></div>
 </fieldset>
                 </form>
-{{if request.vars:}}
-	<h2>Search result for {{=query}}</h2>
+{{if request.vars and words:}}
+	<h4>Search result for {{=query}}</h4>
 
 {{if words:}}
 		<h2>Translation:</h2>
@@ -40,7 +40,7 @@
 		<tr><td><strong>{{=language}}</td><td><i>English</i></td><td></td></strong></tr>
 
 	    {{for word in words:}}
-<tr>		    <td>{{=word.Language_Word}}</td>
+<tr>		    <td>{{=word.Language}}</td>
 	    <td>{{=word.English}}</td></tr>
 
 	

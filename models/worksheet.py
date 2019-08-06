@@ -12,6 +12,7 @@ def wordlist(topic_id):
     return dict(words=wordlist)
 
 def wsread_page(page):
+    logging.warn("Wsread_page")
     page_body = page.body
     worksheet = db(db.plugin_wiki_tag.name=="WorkSheet").select().first()
         #FIXME
@@ -46,15 +47,12 @@ def wsread_page(page):
         for name in files:
             name=os.path.split(name)[1]
             examples.append(name)
+    examples.sort(lambda x,y: -cmp(len(x), len(y)))
 
-    examples=sorted(examples, key=lambda row: row.English,reverse=True)
-
-    while (index<len(examples)):
-        text=os.path.splitext(example[index+1])[0]
+    for example in examples:
+	text=os.path.splitext(example)[0]
         if text  in page_body:
-                 SoundLinks.append({'text':text +str(example[index]),'sound':str(example[index+1]), 'type':'file'})
-
-
+                 SoundLinks.append({'text':text,'sound':str(example), 'type':'file'})
 
     r = re.compile(r'(<s.*?>|<a.*?<\/a>|<img.*?>)')
     SoundLinks=sorted(SoundLinks, key=lambda k: k['text'])
@@ -62,7 +60,6 @@ def wsread_page(page):
     #logging.warn(page_body)  
     parags=r.split(page_body)
     paragraphs=""
-    item=[]
     for parag in parags:
        if parag:
             if parag.startswith('<a') or parag.startswith('<source') or parag.startswith('<src=') or parag.startswith('<img '):
@@ -70,38 +67,30 @@ def wsread_page(page):
             else:
                 i=0
                 while i<k:
-                    item=SoundLinks[i]
-                    #while i<k-1 and  SoundLinks[i+1]["text"]==SoundLinks[i]["text"]:
+		    item=SoundLinks[i]
+                    while i<k-1 and  SoundLinks[i+1]["text"]==SoundLinks[i]["text"]:
                                 #get most recent version
-                     #           i+=1
-                      #          item=SoundLinks[i]
+                                i+=1
+                                item=SoundLinks[i]
 
                     #find pargraphs in site 
-                    newparags=re.split(r'(<a.*?<\/a>)',parag)
-                    parag=""
-                    for newparag in newparags:
-                        if newparag.startswith("<a"):
-                            parag+=newparag
+		    newparags=re.split(r'(<a.*?<\/a>)',parag)
+		    parag=""
+		    Info=""
+	 	    for newparag in newparags:
+		      if newparag.startswith('<a') :
+                		parag+=newparag
+            	      else:
+			if re.search(r'\W'+item["text"]+r'\W',newparag):
+                          if item["type"]=="file":
+                            Sound = urllib.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
+                          else:
+                            Sound = urllib.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
+                          Info+="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
+                          newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
 
-                        else:
-
-                            if re.search(r'\W'+item["text"]+r'\W',newparag):
-                                while i<k-1 and  SoundLinks[i+1]["text"]==SoundLinks[i]["text"]:
-                                    Info=""
-                                    if item["type"]=="file":
-                                        Sound = urllib.unquote(URL(c="default", f="filedown/media/sounds", args=item["sound"]))
-                                    else:
-                                        Sound = urllib.unquote(URL(c="default", f="filedown/file", args=item["sound"]))
-                                    if Info=="":
-                                        Info="DHTMLSound('"+str(Sound)+"','"+str(item["text"])+"');"
-                                    else:
-                                        Info+="DHTMLLoadSound('"+str(Sound)+"','"+str(item["text"])+"');"
-
-                                    i+=1
-                                newparag=re.sub(r'(\W)'+item["text"]+r'(\W)', r'\1<a href="#" onMouseOver="'+str(Info)+'" > '+item["text"]+r' </a>\2',newparag)
-
-                            parag+=newparag
-                    i+=1
+		        parag+=newparag
+		    i+=1
 
                 paragraphs+=parag
 
@@ -155,3 +144,4 @@ def wsimage():
                 filenameadd = request.args(1)
                 fullpath = os.path.join(fullpath, filenameadd)
         response.stream(os.path.join(request.folder,fullpath))
+    

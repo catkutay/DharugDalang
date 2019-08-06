@@ -92,7 +92,7 @@ function DHTMLFrontSound(surl,text) {
 	 hp.style.background="grey";
                 hp.style.width="100%";
         }
-   surl="/Bundjalung/sounds/"+surl;
+   surl="/sounds/"+surl;
 
         hp.innerHTML=text+' '+'<audio controls autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText("popupword")  ></a><\div> ';
 

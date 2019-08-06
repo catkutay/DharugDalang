@@ -5,12 +5,12 @@
 </div>
 <div id="popupword" ></div>
 </p>
-<font color={{=T(word.color)}}>
+<font color={{=word.color}}>
 <table id="word" style="border:1px solid {{=word.color}};">
 <tr id="word"><td id="word"><b>English:</b> {{=word.English}}
 </td></tr>
 <tr id="word"><td id="word">
-<b>{{=T(word.dialect)}}:</b>
+<b>Dharug: </b>
 {{if word.Sound and word.Sound!=";":}}
 <a href="" target="_blank" onMouseOver="DHTMLSound('{{=T(word.Sound)}}','<b><i>{{=T(word.Language_Word)}}</i></b><br>{{=T(word.Search_English)}}');" >{{=word.Language_Word}} [Hover over to listen]</a>
 
@@ -19,7 +19,11 @@
 {{=word.Language_Word}}
 {{pass}}
 <br>
-</td></tr><tr><td id="word">
+</td></tr>
+{{word}}
+<tr id="word"><td id="word"><b>Part of Speech:</b> {{=word.Part_of_Speech}}
+</td></tr>
+<tr><td id="word">
 <b>Related Words: </b> {{for relate in related:}}
         {{=relate}} &nbsp;
 {{pass}}
@@ -40,8 +44,34 @@
 <b>Comment:</b> {{=word.Comment}}
 </td></tr>
 <tr id="word"><td id="word">
-<font color={{=T(word.color)}}><b>{{=T(word.dialect)}}</b> {{=word.Language_Word}}</font>
+{{if word.Gold_Coast_Tweed:}}
+<font color='green'><B>Gold Coast Tweed:</b> {{=word.Gold_Coast_Tweed}}</font>
 
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Lower_Richmond:}}
+<font color='blue'><b>Lower Richmond:</b> {{=word.Lower_Richmond}}</font>
+
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Middle_Clarence:}}
+<font color='black'><b>South West:</b> {{=word.Middle_Clarence}}</font>
+
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Condamine_Upper_Clarence:}}
+<font color='red'><b>Condamine Upper Clarence:</b> {{=word.Condamine_Upper_Clarence}}</font>
+
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Copmanhurst:}}
+<font color='orange'><b>Copmanhurst:</font></b> {{=word.Copmanhurst}}</font>
+
+{{pass}}
 {{for example in exampleSentences:}}
 </td></tr>
 <tr id="word"><td id="word">

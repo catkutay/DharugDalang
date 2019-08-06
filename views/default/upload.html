@@ -1,14 +1,23 @@
 {{extend 'layout.html'}}
-<h1>Sound Files</h1>
 
+<h3>Page for uploading {{=type[:-1]}} files</h3>
+These pages allow you to upload and use your own images and sound files
 <p>
 {{if auth.user.Role_Name!='student':}}
-<h3>Upload {{=type}} file</h1>
-Filename should match language words matched to the file (.mp3/.wav)
+<h3>Upload {{=type[:-1]}} file</h1>
+The button below will let you select a file from your computer.
+<br>
+{{if type[:-1]=="image":}}
+
+Add a title name for the file that is the language word it is describing.
+<br>
+{{else:}}
+You must have  saved the file on your computer with its name as the asssociated language word (plus its ending .wav or .mp3).</p>
+{{pass}}
 <br>
 <form action={{=URL(r=request, c='default', f='upload', args=type)}} method='POST' enctype='multipart/form-data'>
     <input type='file' name='file'><br>
-
+Title for File (eg language word associated to image): <input type='text' name='fileTitle' ><br>
 <b> Type: </b><select name="type">
 {{for option in options:}}
 <option value={{=option}}>{{=option}}</option>>
@@ -23,7 +32,7 @@ Filename should match language words matched to the file (.mp3/.wav)
 <p>
 {{if type=="sounds":}}
 <table><tbody>
-{{for item in sort_list:}}
+{{for item in list:}}
 <tr><td>
 {{=item['name']}}
 </td>
@@ -39,7 +48,7 @@ Filename should match language words matched to the file (.mp3/.wav)
 
 <div class="col-sm-12" style="height:1000px;">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="height:200px;">
-{{for directory in directories:}}
+{{for directory in options:}}
 {{heading="heading"+str(index)}}
 {{collapse="collapse"+str(index)}}
 {{hcollapse="#"+collapse}}
@@ -53,7 +62,7 @@ Filename should match language words matched to the file (.mp3/.wav)
                 <div id={{=collapse}} class="panel-collapse collapse" role="tabpanel" aria-labelledby={{=heading}}>
                     <div class="panel-body">
                    
-                {{for item in sort_list:}}
+                {{for item in list:}}
                 {{if item['category']==directory:}}
 {{=item['name']}}
                         <img src={{=URL(r=request, c="default",f="images",args=item['path'])}} height="50" />
@@ -74,7 +83,7 @@ Filename should match language words matched to the file (.mp3/.wav)
                 <div id={{=collapse}} class="panel-collapse collapse" role="tabpanel" aria-labelledby={{=heading}}>
                     <div class="panel-body">
     </h4>
-                {{for item in sort_list:}}
+                {{for item in list:}}
                 {{if item['category']==directory:}}
 {{=item['name']}}
                         <img src={{=URL(r=request, c="default",f="images",args=item['path'])}} height="50" />
@@ -94,7 +103,7 @@ Filename should match language words matched to the file (.mp3/.wav)
 {{if page_number>1:}}
 i<h5>{{=A('Back',_href=URL(c='default',f='upload',args=['sounds',page_number-1]))}}</h5>
 {{pass}}
-{{if type!="images" and page_number*10<len(sort_list)-1:}}
+{{if type!="images" and page_number*10<len(list)-1:}}
 <h5>{{=A('More',_href=URL(c='default',f='upload',args=['sounds',page_number+1]))}}</h5>
 <br>
 {{pass}}
