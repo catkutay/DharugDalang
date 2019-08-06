@@ -1,0 +1,51 @@
+<h4>Wordlist</h4>
+<a style="float:right;"  onclick=stopText('popuplist')  >Close</a>
+<form method="get" id='getlist' action="{{=URL(r=request,c='learning', f='list',args=page_id)}}">
+<fieldset>
+<table width="100%">
+{{if newwords:}}
+<tr><td width=45% >English</td><td>Language</td><td>Keep</td></tr>
+
+	{{for word in newwords:}}
+<tr><td>
+{{=word["English"]}}
+</td><td>
+{{=word["Language"]}}
+</td>
+<td>
+<input type="checkbox" name=word_id value={{=word['id']}}>
+</td>
+</tr>
+{{pass}}
+<tr>
+<td>
+<input type="submit" value="Add to wordlist" />
+</td>
+</tr>
+</fieldset>
+</form>
+
+{{pass}}
+{{pass}}
+</table>
+{{if plugin_wiki_editor :}}
+<hr>
+<h4> Add new word</h4>
+<form method="get" id='getlist' action="{{=URL(r=request,c='learning', f='addlist', args=page_id)}}">
+                    <fieldset>
+<br>
+ 		 <input type="radio" name="lang" value="English" checked />English
+                <input type="radio" name="lang" value={{=language}} />{{=language}}
+           <input size="50" type="text" id="s" name="query" value="" />
+<input type="submit" value="Add" />
+
+ </fieldset>
+                </form>
+{{else:}}
+
+{{pass}}
+<script>
+
+jQuery('#getlist').submit(function(){
+ajax('{{=URL(r=request,c="learning",f="list" )}}','popuplist')});
+</script>
