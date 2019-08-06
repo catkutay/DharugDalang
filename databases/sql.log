@@ -1,0 +1,12 @@
+timestamp: 2019-08-06T20:04:25.243676
+CREATE TABLE `web2py_session_Dharug`(
+    `id` INT AUTO_INCREMENT NOT NULL,
+    `locked` CHAR(1),
+    `client_ip` VARCHAR(64),
+    `created_datetime` DATETIME,
+    `modified_datetime` DATETIME,
+    `unique_key` VARCHAR(64),
+    `session_data` LONGBLOB,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB CHARACTER SET utf8;
+faked!
